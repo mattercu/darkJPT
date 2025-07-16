@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Minecraft';
-  src: url('assets/font/Minecraft.ttf') format('truetype');
+  src: url('assets/fonts/Minecraft.ttf') format('truetype');
 }
 
 body {
@@ -102,7 +102,7 @@ canvas {
 
 .menu a {
   text-decoration: none;
-  background: url('assets/image/button.png') center center / cover;
+  background: url('assets/image/button.jpg') center center / cover; /* Sửa thành .jpg nếu đúng */
   color: #fff;
   padding: 15px 40px;
   border-radius: 10px;
@@ -134,7 +134,7 @@ canvas {
 .menu a:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-  background: url('assets/image/button.png') center center / cover, linear-gradient(45deg, #4CAF50, #8BC34A);
+  background: url('assets/image/button.jpg') center center / cover, linear-gradient(45deg, #4CAF50, #8BC34A);
 }
 
 #popup {

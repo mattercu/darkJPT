@@ -4,7 +4,7 @@ const today = new Date();
 const dateString = today.toLocaleDateString('vi-VN', {
   weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
 });
-dateDisplay.textContent = `Hôm nay: ${dateString}, ngày 16 tháng 7 2025`; // Cập nhật ngày hiện tại
+dateDisplay.textContent = `Hôm nay: ${dateString}, ngày 17 tháng 7 2025`; // Cập nhật ngày mới
 
 function updateClock() {
   const now = new Date();

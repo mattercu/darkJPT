@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Hanh Đẹp Trai</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background: url('https://i.imgur.com/o2rCCnl.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px 20px;
+      margin: 40px auto;
+      border-radius: 20px;
+      max-width: 500px;
+      box-shadow: 0 0 15px #000;
+    }
+    .info-box {
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      padding: 15px;
+      border-radius: 15px;
+      margin: 10px 0;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+    }
+    h1 {
+      font-size: 40px;
+      margin: 20px 0;
+      color: #00ffcc;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .menu a {
+      display: block;
+      margin: 15px auto;
+      padding: 15px 25px;
+      width: 80%;
+      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .menu a:hover {
+      background: linear-gradient(135deg, #4a00e0, #8e2de2);
+      transform: scale(1.05);
+    }
+    .footer {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #ccc;
+    }
+    .footer a {
+      color: #00ffd5;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="info-box" id="dateDisplay"></div>
+    <div class="info-box" id="clock"></div>
+    <h1>Hanh Đẹp Trai</h1>
+    <div class="menu">
+      <a href="https://infomangcuatui.blogspot.com/2025/05/info-mang-cua-tui.html" target="_blank">Info của tui</a>
+      <a href="https://hanhotp.blogspot.com/2025/05/hanh-ep-trai-body-font-family-arial.html?m=1" target="_blank">Free Fire (Đã cập nhật)</a>
+      <a href="#">Liên Quân</a>
+      <a href="#">Play Together</a>
+      <a href="#">Blockman Go</a>
+    </div>
+    <div class="footer">
+      Bản quyền thuộc về <a href="https://zalo.me/g/xwohrt294">Bùi Đức Hoàng Anh</a>
+    </div>
+  </div>
+  <script>
+    const dateDisplay = document.getElementById("dateDisplay");
+    const today = new Date();
+    const dateString = today.toLocaleDateString('vi-VN', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+    dateDisplay.textContent = `Hôm nay: ${dateString}`;
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('vi-VN');
+      document.getElementById("clock").textContent = `Bây giờ: ${timeString}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>

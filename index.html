@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Hanh Đẹp Trai</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Neue', cursive;
+      background: url('https://i.imgur.com/9fZ5Z7k.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+      color: #333;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      opacity: 0.8;
+    }
+    #fade {
+      text-align: center;
+      transition: filter 0.5s ease;
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      margin: 20px auto;
+      max-width: 800px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    #fade.active {
+      filter: blur(5px);
+    }
+    #dateDisplay, #clock {
+      margin: 10px 0;
+      font-size: 20px;
+      color: #fff;
+      background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+      padding: 8px 15px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    #title {
+      font-size: 48px;
+      margin: 20px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .letter {
+      display: inline-block;
+      animation: colorChange 4s infinite;
+      font-weight: bold;
+    }
+    @keyframes colorChange {
+      0% { color: #ff0000; }
+      14% { color: #ff9900; }
+      28% { color: #ffff00; }
+      42% { color: #00ff00; }
+      57% { color: #0000ff; }
+      71% { color: #4b0082; }
+      85% { color: #9400d3; }
+      100% { color: #ff0000; }
+    }
+    .menu {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .menu a {
+      text-decoration: none;
+      background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 18px;
+      width: 220px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .menu a:hover {
+      background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, #f6d365, #fda085);
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      max-width: 400px;
+      z-index: 1000;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      border: 3px solid #fff;
+    }
+    #popup.fade-out {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+      pointer-events: none;
+    }
+    #popup p {
+      margin: 15px 0;
+      font-size: 18px;
+      color: #333;
+      text-align: center;
+    }
+    #close-btn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 16px;
+      background: #ff4b4b;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    #close-btn:hover {
+      background: #e43c3c;
+      transform: scale(1.05);
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 16px;
+      color: #333;
+    }
+    .admin-link {
+      color: #ff6b6b;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .admin-link:hover {
+      text-decoration: underline;
+    }
+    audio {
+      display: none;
+    }
+    @media (max-width: 600px) {
+      #title {
+        font-size: 32px;
+      }
+      .menu a {
+        width: 180px;
+        font-size: 16px;
+        padding: 12px 20px;
+      }
+      #popup {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="fireworks"></canvas>
+  <div id="fade">
+    <div id="dateDisplay"></div>
+    <div id="clock"></div>
+    <h1 id="title">
+      <span class="letter">H</span><span class="letter">a</span><span class="letter">n</span><span class="letter">h</span>
+      <span class="letter"> </span><span class="letter">Đ</span><span class="letter">ẹ</span><span class="letter">p</span>
+      <span class="letter"> </span><span class="letter">T</span><span class="letter">r</span><span class="letter">a</span><span class="letter">i</span>
+    </h1>
+    <div class="menu">
+      <a href="https://infomangcuatui.blogspot.com/2025/05/info-mang-cua-tui.html" target="_blank">info của tui</a>
+      <a href="https://hanhotp.blogspot.com/2025/05/hanh-ep-trai-body-font-family-arial.html?m=1" target="_blank">Free Fire (Đã cập nhật)</a>
+      <a href="#">Liên Quân</a>
+      <a href="#">Play Together</a>
+      <a href="#">Blockman Go</a>
+    </div>
+    <div class="footer">
+      <b>Bản quyền thuộc về <a href="https://zalo.me/g/xwohrt294" class="admin-link">Bùi Đức Hoàng Anh</a></b>
+    </div>
+  </div>
+
+  <div id="popup">
+    <p><b>TikTok:</b> @iamnotxxx</p>
+    <p><b>Youtube:</b> Hoang Anh OTP</p>
+    <button id="close-btn">Đóng thông báo</button>
+  </div>
+
+  <audio id="bg-music" loop>
+    <source src="https://files.catbox.moe/nbtmsj.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const dateDisplay = document.getElementById("dateDisplay");
+    const today = new Date();
+    const dateString = today.toLocaleDateString('vi-VN', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+    dateDisplay.textContent = `Hôm nay: ${dateString}`;
+    
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('vi-VN');
+      document.getElementById("clock").textContent = `Bây giờ: ${timeString}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    const popup = document.getElementById('popup');
+    const music = document.getElementById('bg-music');
+    const closeBtn = document.getElementById('close-btn');
+    const fade = document.getElementById('fade');
+
+    closeBtn.addEventListener('click', function () {
+      popup.classList.add('fade-out');
+      fade.classList.add('active');
+      setTimeout(() => {
+        popup.style.display = 'none';
+        fade.classList.remove('active');
+        music.volume = 0.5;
+        music.play();
+        alert("Hãy bật âm lượng điện thoại để nghe nhạc to hơn!");
+        startFireworks();
+      }, 500);
+    });
+
+    function startFireworks() {
+      // Placeholder, chưa có hiệu ứng pháo hoa. Có thể thêm thư viện JS ở đây nếu cần.
+      console.log("Fireworks bắt đầu!");
+    }
+  </script>
+</body>
+</html>

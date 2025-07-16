@@ -1,98 +1,285 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Hanh Đẹp Trai</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <title>Hanh Đẹp Trai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background: url('https://i.imgur.com/o2rCCnl.jpg') no-repeat center center fixed;
+      font-family: 'Comic Neue', cursive;
+      background: url('https://i.imgur.com/5vZ5X9Q.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+      color: #fff;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4); /* Subtle overlay for readability */
+      z-index: -2;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    #fade {
+      text-align: center;
+      transition: filter 0.5s ease;
+      position: relative;
+      z-index: 1;
+      padding: 30px;
+      background: rgba(34, 34, 34, 0.9); /* Dark, semi-transparent Minecraft-like block */
+      border-radius: 15px;
+      margin: 30px auto;
+      max-width: 900px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      border: 3px solid #3c2f2f; /* Minecraft wood-like border */
+    }
+
+    #fade.active {
+      filter: blur(5px);
+    }
+
+    #dateDisplay, #clock {
+      margin: 15px 0;
+      font-size: 22px;
+      color: #fff;
+      background: linear-gradient(45deg, #4CAF50, #8BC34A); /* Minecraft green palette */
+      padding: 10px 20px;
+      border-radius: 8px;
+      display: inline-block;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      border: 2px solid #2E7D32;
+    }
+
+    #title {
+      font-size: 50px;
+      margin: 20px 0;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
+    }
+
+    .letter {
+      display: inline-block;
+      animation: colorChange 4s infinite;
+      font-weight: bold;
+    }
+
+    @keyframes colorChange {
+      0% { color: #FF5555; } /* Redstone */
+      14% { color: #FFAA00; } /* Gold */
+      28% { color: #FFFF55; } /* Glowstone */
+      42% { color: #55FF55; } /* Emerald */
+      57% { color: #5555FF; } /* Lapis */
+      71% { color: #AA00AA; } /* Amethyst */
+      85% { color: #FF55FF; } /* Magenta */
+      100% { color: #FF5555; } /* Redstone */
+    }
+
+    .menu {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      background: url('https://i.imgur.com/8Z5Y3Yh.png'); /* Minecraft stone button texture */
       background-size: cover;
       color: #fff;
+      padding: 15px 40px;
+      border-radius: 10px;
+      font-size: 20px;
+      width: 250px;
       text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+      border: 3px solid #3c2f2f;
+      position: relative;
+      overflow: hidden;
     }
-    .container {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 30px 20px;
-      margin: 40px auto;
-      border-radius: 20px;
-      max-width: 500px;
-      box-shadow: 0 0 15px #000;
+
+    .menu a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: 0.5s;
     }
-    .info-box {
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      padding: 15px;
-      border-radius: 15px;
-      margin: 10px 0;
-      font-size: 18px;
-      font-weight: bold;
-      color: #fff;
+
+    .menu a:hover::before {
+      left: 100%;
     }
-    h1 {
-      font-size: 40px;
-      margin: 20px 0;
-      color: #00ffcc;
-      text-shadow: 2px 2px 4px #000;
-    }
-    .menu a {
-      display: block;
-      margin: 15px auto;
-      padding: 15px 25px;
-      width: 80%;
-      background: linear-gradient(135deg, #8e2de2, #4a00e0);
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 16px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+
     .menu a:hover {
-      background: linear-gradient(135deg, #4a00e0, #8e2de2);
-      transform: scale(1.05);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      background: url('https://i.imgur.com/8Z5Y3Yh.png') center center / cover, linear-gradient(45deg, #4CAF50, #8BC34A);
     }
-    .footer {
+
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: url('https://i.imgur.com/7z5Z5Z5.jpg'); /* Crafting table texture */
+      background-size: cover;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      padding: 40px;
+      max-width: 450px;
+      z-index: 1000;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      border: 4px solid #3c2f2f;
+      animation: popupEnter 0.5s ease-out forwards;
+    }
+
+    @keyframes popupEnter {
+      from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    #popup.fade-out {
+      opacity: 0;
+      transform: translate(-50%, -60%) scale(0.8);
+      pointer-events: none;
+    }
+
+    #popup p {
+      margin: 20px 0;
+      font-size: 20px;
+      color: #fff;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    #close-btn {
       margin-top: 25px;
-      font-size: 14px;
-      color: #ccc;
+      padding: 12px 30px;
+      font-size: 18px;
+      background: linear-gradient(45deg, #D32F2F, #F44336); /* Redstone button style */
+      color: #fff;
+      border: 2px solid #3c2f2f;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
-    .footer a {
-      color: #00ffd5;
+
+    #close-btn:hover {
+      background: linear-gradient(45deg, #F44336, #D32F2F);
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .footer {
+      margin-top: 50px;
+      font-size: 18px;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .admin-link {
+      color: #4CAF50; /* Minecraft green */
       text-decoration: none;
+      font-weight: bold;
     }
-    .footer a:hover {
+
+    .admin-link:hover {
       text-decoration: underline;
+      color: #8BC34A;
+    }
+
+    audio {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      #title {
+        font-size: 36px;
+      }
+      .menu a {
+        width: 200px;
+        font-size: 18px;
+        padding: 12px 30px;
+      }
+      #popup {
+        width: 85%;
+        padding: 20px;
+      }
+      #dateDisplay, #clock {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="info-box" id="dateDisplay"></div>
-    <div class="info-box" id="clock"></div>
-    <h1>Hanh Đẹp Trai</h1>
+  <canvas id="fireworks"></canvas>
+
+  <div id="fade">
+    <div id="dateDisplay"></div>
+    <div id="clock"></div>
+
+    <h1 id="title">
+      <span class="letter">H</span><span class="letter">a</span><span class="letter">n</span><span class="letter">h</span>
+      <span class="letter"> </span><span class="letter">Đ</span><span class="letter">ẹ</span><span class="letter">p</span>
+      <span class="letter"> </span><span class="letter">T</span><span class="letter">r</span><span class="letter">a</span><span class="letter">i</span>
+    </h1>
+
     <div class="menu">
       <a href="https://infomangcuatui.blogspot.com/2025/05/info-mang-cua-tui.html" target="_blank">Info của tui</a>
-      <a href="https://hanhotp.blogspot.com/2025/05/hanh-ep-trai-body-font-family-arial.html?m=1" target="_blank">Free Fire (Đã cập nhật)</a>
-      <a href="#">Liên Quân</a>
-      <a href="#">Play Together</a>
-      <a href="#">Blockman Go</a>
+      <a href="https://hanhotp.blogspot.com/2025/05/hanh-ep-trai-body-font-family-arial.html?m=1" target="_blank">Free Fire (Đã Cập nhật)</a>
+      <a href="#" target="_blank">Liên Quân</a>
+      <a href="#" target="_blank">Play Together</a>
+      <a href="#" target="_blank">Blockman Go</a>
     </div>
+
     <div class="footer">
-      Bản quyền thuộc về <a href="https://zalo.me/g/xwohrt294">Bùi Đức Hoàng Anh</a>
+      <b>Bản quyền thuộc về
+        <a href="https://zalo.me/g/xwohrt294" class="admin-link">Bùi Đức Hoàng Anh</a>
+      </b>
     </div>
   </div>
+
+  <div id="popup">
+    <p><b>TikTok:</b> @iamnotxxx</p>
+    <p><b>Youtube:</b> Hoang Anh OTP</p>
+    <button id="close-btn">Đóng thông báo</button>
+  </div>
+
+  <audio id="bg-music" loop>
+    <source src="https://files.catbox.moe/nbtmsj.mp3" type="audio/mpeg">
+    Trình duyệt không hỗ trợ âm thanh.
+  </audio>
+
   <script>
+    // Date & Clock
     const dateDisplay = document.getElementById("dateDisplay");
     const today = new Date();
     const dateString = today.toLocaleDateString('vi-VN', {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     });
     dateDisplay.textContent = `Hôm nay: ${dateString}`;
+
     function updateClock() {
       const now = new Date();
       const timeString = now.toLocaleTimeString('vi-VN');
@@ -100,6 +287,112 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
+
+    // Popup Handling
+    const popup = document.getElementById('popup');
+    const music = document.getElementById('bg-music');
+    const closeBtn = document.getElementById('close-btn');
+    const fade = document.getElementById('fade');
+
+    closeBtn.addEventListener('click', function () {
+      popup.classList.add('fade-out');
+      fade.classList.add('active');
+      setTimeout(() => {
+        popup.style.display = 'none';
+        fade.classList.remove('active');
+        music.volume = 0.5;
+        music.play();
+        alert("Hãy bật âm lượng điện thoại để nghe nhạc to hơn!");
+        startFireworks();
+      }, 500);
+    });
+
+    // Fireworks
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    let fireworks = [];
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function startFireworks() {
+      setInterval(() => {
+        for (let i = 0; i < 2; i++) {
+          fireworks.push({
+            x: Math.random() * canvas.width,
+            y: canvas.height,
+            vx: Math.random() * 2 - 1,
+            vy: Math.random() * -10 - 5,
+            size: Math.random() * 3 + 2,
+            color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+            life: 100
+          });
+        }
+      }, 300);
+
+      animate();
+    }
+
+    function createParticles(x, y, color) {
+      for (let i = 0; i < 20; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() * 4 - 2),
+          vy: (Math.random() * 4 - 2),
+          size: Math.random() * 2 + 1,
+          color: color,
+          life: 50
+        });
+      }
+    }
+
+    function animate() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw fireworks
+      for (let i = fireworks.length - 1; i >= 0; i--) {
+        let f = fireworks[i];
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.size, 0, Math.PI * 2);
+        ctx.fillStyle = f.color;
+        ctx.fill();
+
+        f.x += f.vx;
+        f.y += f.vy;
+        f.vy += 0.1; // Gravity
+        f.life--;
+
+        if (f.life <= 0) {
+          createParticles(f.x, f.y, f.color);
+          fireworks.splice(i, 1);
+        }
+      }
+
+      // Draw particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life--;
+        p.size *= 0.98;
+
+        if (p.life <= 0) particles.splice(i, 1);
+      }
+
+      requestAnimationFrame(animate);
+    }
   </script>
 </body>
 </html>

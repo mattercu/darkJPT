@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Minecraft', 'Comic Neue', cursive;
-  background: url('assets/images/background.jpg') no-repeat center center fixed;
+  background: url('assets/image/background.jpg') no-repeat center center fixed;
   background-size: cover;
   overflow-x: hidden;
   color: #fff;
@@ -21,7 +21,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* Lớp phủ mờ */
+  background: rgba(0, 0, 0, 0.4);
   z-index: -2;
 }
 
@@ -39,12 +39,12 @@ canvas {
   position: relative;
   z-index: 1;
   padding: 40px;
-  background: rgba(34, 34, 34, 0.9); /* Khối tối kiểu Minecraft */
+  background: rgba(34, 34, 34, 0.9);
   border-radius: 15px;
-  margin: 40px auto;
+  margin: 20px auto;
   max-width: 900px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-  border: 4px solid #3c2f2f; /* Viền gỗ */
+  border: 4px solid #3c2f2f;
 }
 
 #fade.active {
@@ -55,13 +55,13 @@ canvas {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 #dateDisplay, #clock {
   font-size: 22px;
   color: #fff;
-  background: linear-gradient(45deg, #4CAF50, #8BC34A); /* Xanh Minecraft */
+  background: linear-gradient(45deg, #4CAF50, #8BC34A);
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -70,7 +70,7 @@ canvas {
 
 #title {
   font-size: 50px;
-  margin: 20px 0;
+  margin: 10px 0;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
   letter-spacing: 2px;
 }
@@ -82,26 +82,27 @@ canvas {
 }
 
 @keyframes colorChange {
-  0% { color: #FF5555; } /* Redstone */
-  14% { color: #FFAA00; } /* Gold */
-  28% { color: #FFFF55; } /* Glowstone */
-  42% { color: #55FF55; } /* Emerald */
-  57% { color: #5555FF; } /* Lapis */
-  71% { color: #AA00AA; } /* Amethyst */
-  85% { color: #FF55FF; } /* Magenta */
-  100% { color: #FF5555; } /* Redstone */
+  0% { color: #FF5555; }
+  14% { color: #FFAA00; }
+  28% { color: #FFFF55; }
+  42% { color: #55FF55; }
+  57% { color: #5555FF; }
+  71% { color: #AA00AA; }
+  85% { color: #FF55FF; }
+  100% { color: #FF5555; }
 }
 
 .menu {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
+  margin: 30px 0;
 }
 
 .menu a {
   text-decoration: none;
-  background: url('assets/images/button.png') center center / cover;
+  background: url('assets/image/button.png') center center / cover;
   color: #fff;
   padding: 15px 40px;
   border-radius: 10px;
@@ -133,7 +134,7 @@ canvas {
 .menu a:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-  background: url('assets/images/button.png') center center / cover, linear-gradient(45deg, #4CAF50, #8BC34A);
+  background: url('assets/image/button.png') center center / cover, linear-gradient(45deg, #4CAF50, #8BC34A);
 }
 
 #popup {
@@ -141,7 +142,7 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.8);
-  background: url('assets/images/crafting_table.jpg') center center / cover;
+  background: url('assets/image/crafting_table.jpg') center center / cover;
   border-radius: 15px;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
   padding: 40px;
@@ -175,7 +176,7 @@ canvas {
   margin-top: 25px;
   padding: 12px 30px;
   font-size: 18px;
-  background: linear-gradient(45deg, #D32F2F, #F44336); /* Redstone */
+  background: linear-gradient(45deg, #D32F2F, #F44336);
   color: #fff;
   border: 2px solid #3c2f2f;
   border-radius: 8px;
@@ -191,7 +192,7 @@ canvas {
 }
 
 .footer {
-  margin-top: 50px;
+  margin-top: 40px;
   font-size: 18px;
   color: #fff;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);

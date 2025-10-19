@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hack Experience 20/10 - 5D</title>
+    <title>20/10 Special</title>
     <style>
         * {
             margin: 0;
@@ -12,83 +12,50 @@
         }
 
         body {
-            font-family: 'Courier New', monospace;
-            background: #000;
-            color: #00ff00;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             overflow: hidden;
             height: 100vh;
-            cursor: none;
         }
 
-        .scene-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            perspective: 2000px;
-            transform-style: preserve-3d;
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
         }
 
-        .hack-button-3d {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg);
-            padding: 30px 60px;
-            font-size: 2.5rem;
+        .hack-button {
+            padding: 25px 60px;
+            font-size: 3rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
-            border: 3px solid #00ff00;
-            border-radius: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff, #c56cf0);
+            border: none;
+            border-radius: 60px;
             color: white;
             cursor: pointer;
-            animation: hackPulse 2s infinite, hackGlow 1s infinite alternate;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            transform-style: preserve-3d;
+            animation: buttonGlow 2s infinite alternate;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
             transition: all 0.3s ease;
-            z-index: 1000;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
 
-        .hack-button-3d:hover {
-            animation: none;
-            transform: translate(-50%, -50%) rotateX(10deg) rotateY(10deg) scale(1.1);
-            box-shadow: 0 0 50px #00ff00;
+        .hack-button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        @keyframes hackPulse {
-            0%, 100% { transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg) scale(1); }
-            50% { transform: translate(-50%, -50%) rotateX(5deg) rotateY(5deg) scale(1.05); }
-        }
-
-        @keyframes hackGlow {
-            from { box-shadow: 0 0 20px #00ff00; }
-            to { box-shadow: 0 0 40px #00ff00, 0 0 60px #00ff00; }
-        }
-
-        .matrix-code-3d {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-        }
-
-        .matrix-char {
-            position: absolute;
-            color: #00ff00;
-            font-family: 'Courier New', monospace;
-            font-size: 18px;
-            animation: matrixFall 3s linear infinite;
-            transform-style: preserve-3d;
-        }
-
-        @keyframes matrixFall {
-            0% {
-                transform: translateY(-100px) translateZ(-1000px) rotateX(0deg);
-                opacity: 1;
+        @keyframes buttonGlow {
+            from {
+                box-shadow: 0 0 30px rgba(255,107,107,0.6);
             }
-            100% {
-                transform: translateY(100vh) translateZ(1000px) rotateX(360deg);
-                opacity: 0;
+            to {
+                box-shadow: 0 0 50px rgba(77,150,255,0.9),
+                           0 0 70px rgba(107,207,127,0.7);
             }
         }
 
@@ -98,420 +65,351 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-text {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 50px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .rainbow-text {
+            display: inline-block;
+        }
+
+        .rainbow-char {
+            display: inline-block;
+            animation: rainbowColor 0.7s linear infinite;
+            animation-delay: calc(0.08s * var(--char-index));
+        }
+
+        @keyframes rainbowColor {
+            0% { color: #ff0000; transform: translateY(0px); }
+            14% { color: #ff7f00; transform: translateY(-3px); }
+            28% { color: #ffff00; transform: translateY(0px); }
+            42% { color: #00ff00; transform: translateY(3px); }
+            57% { color: #0000ff; transform: translateY(0px); }
+            71% { color: #4b0082; transform: translateY(-3px); }
+            85% { color: #9400d3; transform: translateY(0px); }
+            100% { color: #ff0000; transform: translateY(3px); }
+        }
+
+        .loading-bar-container {
+            width: 70%;
+            height: 25px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 30px 0;
+            border: 2px solid rgba(255,255,255,0.4);
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff, #c56cf0);
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.2s ease;
+            box-shadow: 0 0 15px rgba(255,255,255,0.6);
+        }
+
+        .message-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                #ff6b6b 0%, #ffd93d 20%, #6bcf7f 40%, #4d96ff 60%, #c56cf0 80%, #ff6b6b 100%);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 2000;
-        }
-
-        .loading-bar-container {
-            width: 60%;
-            height: 30px;
-            background: #333;
-            border: 2px solid #00ff00;
-            border-radius: 15px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-
-        .loading-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #00ff00, #00cc00);
-            width: 0%;
-            transition: width 0.3s ease;
-            border-radius: 13px;
-        }
-
-        .loading-text {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-align: center;
-            animation: textColorChange 3s infinite;
-        }
-
-        @keyframes textColorChange {
-            0% { color: #00ff00; }
-            25% { color: #ff0000; }
-            50% { color: #0000ff; }
-            75% { color: #ffff00; }
-            100% { color: #00ff00; }
-        }
-
-        .hacker-sticker {
-            position: absolute;
-            font-size: 4rem;
-            opacity: 0;
-            transform: scale(0) rotate(0deg);
-            transition: all 0.5s ease;
-        }
-
-        .sticker-visible {
-            opacity: 1;
-            transform: scale(1) rotate(360deg);
-        }
-
-        .message-3d {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg);
-            background: rgba(0, 0, 0, 0.9);
-            padding: 50px;
-            border-radius: 20px;
-            border: 3px solid #00ff00;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transform-style: preserve-3d;
-            display: none;
-            z-index: 1500;
-        }
-
-        .message-title {
-            font-size: 3rem;
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
-            transform: translateZ(50px);
+            padding: 20px;
         }
 
         .message-content {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            color: white;
-            margin-bottom: 20px;
-            transform: translateZ(30px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 3px solid rgba(255,255,255,0.6);
         }
 
-        .snowflake-3d {
+        .message-title {
+            font-size: 2.8rem;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff, #c56cf0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .wish-text {
+            font-size: 1.4rem;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .wish-emoji {
+            font-size: 2.2rem;
+            margin: 0 8px;
+            vertical-align: middle;
+        }
+
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3000;
+        }
+
+        .snowflake {
             position: absolute;
             color: white;
-            font-size: 20px;
-            animation: snow3d 15s linear infinite;
-            transform-style: preserve-3d;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            font-size: 24px;
+            animation: snowFall 12s linear infinite;
+            text-shadow: 0 0 8px rgba(255,255,255,0.9);
         }
 
-        @keyframes snow3d {
+        @keyframes snowFall {
             0% {
-                transform: translateY(-100px) translateZ(-1000px) rotateX(0deg) rotateY(0deg);
+                transform: translateY(-100px) rotate(0deg);
                 opacity: 1;
             }
             100% {
-                transform: translateY(100vh) translateZ(1000px) rotateX(360deg) rotateY(360deg);
+                transform: translateY(100vh) rotate(360deg);
                 opacity: 0;
             }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
 
         .star {
             position: absolute;
             background: white;
             border-radius: 50%;
-            animation: twinkle 5s infinite;
-            transform-style: preserve-3d;
+            animation: twinkle 4s infinite;
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
         }
 
-        .shooting-star {
-            position: absolute;
-            background: linear-gradient(90deg, transparent, white);
-            height: 2px;
-            animation: shoot 3s infinite;
-            transform-style: preserve-3d;
-        }
-
-        @keyframes shoot {
-            0% {
-                transform: translateX(-100px) translateY(-100px) translateZ(-500px) rotate(45deg);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(100vw) translateY(100vh) translateZ(500px) rotate(45deg);
-                opacity: 0;
-            }
-        }
-
-        .cursor-3d {
+        .audio-control {
             position: fixed;
-            width: 20px;
-            height: 20px;
-            background: #00ff00;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            mix-blend-mode: difference;
+            bottom: 25px;
+            right: 25px;
+            z-index: 4000;
+        }
+
+        .music-btn {
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.25);
+            border: 2px solid white;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .music-btn:hover {
+            background: rgba(255,255,255,0.35);
+            transform: scale(1.08);
         }
     </style>
 </head>
 <body>
-    <div class="cursor-3d" id="cursor3d"></div>
-
-    <div class="scene-container" id="sceneContainer">
-        <div class="matrix-code-3d" id="matrixCode3d"></div>
-        <button class="hack-button-3d" onclick="startHackSequence()">HACK 20/10</button>
+    <div class="container">
+        <button class="hack-button" onclick="startHack()">HACK</button>
     </div>
 
     <div class="loading-screen" id="loadingScreen">
-        <div class="loading-text" id="loadingText">Đang lấy dữ liệu máy...</div>
+        <div class="loading-text" id="loadingText"></div>
         <div class="loading-bar-container">
             <div class="loading-bar" id="loadingBar"></div>
         </div>
-        <div id="stickerContainer"></div>
     </div>
 
-    <div class="message-3d" id="message3d">
-        <h1 class="message-title">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</h1>
+    <div class="message-screen" id="messageScreen">
         <div class="message-content">
-            <p>Gửi đến những người phụ nữ tuyệt vời nhất,</p>
-            <p>Nhân ngày 20/10, chúc các bạn luôn:</p>
-            <p>💖 Xinh đẹp rạng ngời</p>
-            <p>💖 Thành công rực rỡ</p>
-            <p>💖 Hạnh phúc trọn vẹn</p>
-            <p>💖 Luôn tỏa sáng như những vì sao!</p>
+            <h1 class="message-title">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</h1>
+            <p class="wish-text"><span class="wish-emoji">💐</span> Gửi đến những người phụ nữ tuyệt vời nhất</p>
+            <p class="wish-text"><span class="wish-emoji">✨</span> Chúc các bạn luôn xinh đẹp, rạng ngời</p>
+            <p class="wish-text"><span class="wish-emoji">🌟</span> Thành công và hạnh phúc trong cuộc sống</p>
+            <p class="wish-text"><span class="wish-emoji">💖</span> Luôn mạnh mẽ và tỏa sáng</p>
+            <p class="wish-text"><span class="wish-emoji">🎀</span> Cảm ơn vì tất cả những điều tuyệt vời</p>
+            <p class="wish-text"><span class="wish-emoji">🌹</span> Chúc mừng ngày 20/10 ý nghĩa!</p>
         </div>
     </div>
 
+    <div class="snowflakes" id="snowflakes"></div>
+    <div class="stars" id="stars"></div>
+
+    <div class="audio-control">
+        <button class="music-btn" onclick="toggleMusic()">🎵 Nhạc Nền</button>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="https://files.catbox.moe/tqi6f7.mov" type="audio/mp3">
+    </audio>
+
     <script>
-        class Advanced5DHackSystem {
+        class HackSystem {
             constructor() {
-                this.matrixChars = '01アァカサタナハマヤャラワABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                this.hackerStickers = ['💻', '🔐', '🖥️', '⚡', '🔒', '🌐', '📡', '💾'];
-                this.stickerInterrupts = [35, 65, 85];
-                this.currentProgress = 0;
-                this.isInterrupted = false;
-                this.mouseX = 0;
-                this.mouseY = 0;
-                this.init();
+                this.music = document.getElementById('backgroundMusic');
+                this.loadingText = "đang hack dữ liệu máy";
+                this.initStars();
+                this.initSnowflakes();
+                this.setupAudioBypass();
             }
 
-            init() {
-                this.create3DMatrix();
-                this.createStars();
-                this.createShootingStars();
-                this.initMouseTracking();
+            setupAudioBypass() {
+                document.addEventListener('click', () => {
+                    this.music.play().catch(e => {
+                        console.log('Auto-play prevented, waiting for user interaction');
+                    });
+                }, { once: true });
             }
 
-            create3DMatrix() {
-                const container = document.getElementById('matrixCode3d');
-                for (let i = 0; i < 100; i++) {
-                    const char = document.createElement('div');
-                    char.className = 'matrix-char';
-                    char.textContent = this.matrixChars.charAt(Math.floor(Math.random() * this.matrixChars.length));
-                    
-                    const startX = Math.random() * 100;
-                    const startZ = Math.random() * 2000 - 1000;
-                    const delay = Math.random() * 5;
-                    const duration = Math.random() * 5 + 3;
-                    
-                    char.style.left = startX + 'vw';
-                    char.style.animationDelay = delay + 's';
-                    char.style.animationDuration = duration + 's';
-                    char.style.transform = `translateZ(${startZ}px)`;
-                    
-                    container.appendChild(char);
-                }
-            }
-
-            createStars() {
-                const scene = document.getElementById('sceneContainer');
-                for (let i = 0; i < 200; i++) {
+            initStars() {
+                const starsContainer = document.getElementById('stars');
+                for (let i = 0; i < 150; i++) {
                     const star = document.createElement('div');
                     star.className = 'star';
                     
                     const size = Math.random() * 3 + 1;
                     const posX = Math.random() * 100;
                     const posY = Math.random() * 100;
-                    const posZ = Math.random() * 2000 - 1000;
-                    const delay = Math.random() * 5;
+                    const delay = Math.random() * 4;
                     
                     star.style.width = size + 'px';
                     star.style.height = size + 'px';
                     star.style.left = posX + 'vw';
                     star.style.top = posY + 'vh';
                     star.style.animationDelay = delay + 's';
-                    star.style.transform = `translateZ(${posZ}px)`;
                     
-                    scene.appendChild(star);
+                    starsContainer.appendChild(star);
                 }
             }
 
-            createShootingStars() {
-                const scene = document.getElementById('sceneContainer');
-                setInterval(() => {
-                    const shootingStar = document.createElement('div');
-                    shootingStar.className = 'shooting-star';
-                    
-                    const startX = Math.random() * 100;
-                    const startY = Math.random() * 100;
-                    const delay = Math.random() * 10;
-                    
-                    shootingStar.style.left = startX + 'vw';
-                    shootingStar.style.top = startY + 'vh';
-                    shootingStar.style.animationDelay = delay + 's';
-                    shootingStar.style.width = Math.random() * 100 + 50 + 'px';
-                    
-                    scene.appendChild(shootingStar);
-                    
-                    setTimeout(() => {
-                        shootingStar.remove();
-                    }, 3000);
-                }, 2000);
-            }
-
-            initMouseTracking() {
-                document.addEventListener('mousemove', (e) => {
-                    this.mouseX = e.clientX;
-                    this.mouseY = e.clientY;
-                    
-                    const cursor = document.getElementById('cursor3d');
-                    cursor.style.left = (e.clientX - 10) + 'px';
-                    cursor.style.top = (e.clientY - 10) + 'px';
-                    
-                    this.update3DRotation();
-                });
-            }
-
-            update3DRotation() {
-                const scene = document.getElementById('sceneContainer');
-                const hackButton = document.querySelector('.hack-button-3d');
-                const message = document.getElementById('message3d');
+            initSnowflakes() {
+                const snowContainer = document.getElementById('snowflakes');
+                const snowflakes = ['❄', '✨', '💎', '⭐', '🔸', '🔷', '♥'];
                 
-                const rotateY = (this.mouseX / window.innerWidth - 0.5) * 60;
-                const rotateX = (this.mouseY / window.innerHeight - 0.5) * -60;
-                
-                scene.style.transform = `perspective(2000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                
-                if (hackButton.style.display !== 'none') {
-                    const buttonRotateY = (this.mouseX / window.innerWidth - 0.5) * 20;
-                    const buttonRotateX = (this.mouseY / window.innerHeight - 0.5) * -20;
-                    hackButton.style.transform = `translate(-50%, -50%) rotateX(${buttonRotateX}deg) rotateY(${buttonRotateY}deg)`;
-                }
-                
-                if (message.style.display === 'block') {
-                    const messageRotateY = (this.mouseX / window.innerWidth - 0.5) * 30;
-                    const messageRotateX = (this.mouseY / window.innerHeight - 0.5) * -30;
-                    message.style.transform = `translate(-50%, -50%) rotateX(${messageRotateX}deg) rotateY(${messageRotateY}deg)`;
-                }
-            }
-
-            async startLoading() {
-                const loadingScreen = document.getElementById('loadingScreen');
-                const loadingBar = document.getElementById('loadingBar');
-                const loadingText = document.getElementById('loadingText');
-                const stickerContainer = document.getElementById('stickerContainer');
-                
-                loadingScreen.style.display = 'flex';
-                document.querySelector('.hack-button-3d').style.display = 'none';
-                
-                const totalTime = 10000;
-                const interval = 100;
-                const steps = totalTime / interval;
-                const progressPerStep = 100 / steps;
-                
-                for (let i = 0; i <= steps; i++) {
-                    if (this.isInterrupted) {
-                        await this.delay(1000);
-                        this.isInterrupted = false;
-                        continue;
-                    }
-                    
-                    this.currentProgress = i * progressPerStep;
-                    loadingBar.style.width = this.currentProgress + '%';
-                    
-                    if (this.stickerInterrupts.includes(Math.floor(this.currentProgress))) {
-                        await this.showHackerSticker(stickerContainer);
-                    }
-                    
-                    loadingText.style.color = this.getRandomColor();
-                    await this.delay(interval);
-                }
-                
-                await this.completeHack();
-            }
-
-            async showHackerSticker(container) {
-                this.isInterrupted = true;
-                
-                const sticker = document.createElement('div');
-                sticker.className = 'hacker-sticker';
-                sticker.textContent = this.hackerStickers[Math.floor(Math.random() * this.hackerStickers.length)];
-                sticker.style.left = Math.random() * 70 + 15 + '%';
-                sticker.style.top = Math.random() * 70 + 15 + '%';
-                
-                container.appendChild(sticker);
-                
-                setTimeout(() => {
-                    sticker.classList.add('sticker-visible');
-                }, 100);
-                
-                await this.delay(1500);
-                
-                sticker.classList.remove('sticker-visible');
-                await this.delay(500);
-                sticker.remove();
-                
-                this.isInterrupted = false;
-            }
-
-            getRandomColor() {
-                const colors = ['#00ff00', '#ff0000', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
-                return colors[Math.floor(Math.random() * colors.length)];
-            }
-
-            async completeHack() {
-                const loadingScreen = document.getElementById('loadingScreen');
-                
-                loadingScreen.style.opacity = '0';
-                loadingScreen.style.transition = 'opacity 2s ease';
-                
-                await this.delay(2000);
-                
-                loadingScreen.style.display = 'none';
-                this.showMessage();
-                this.create3DSnowflakes();
-            }
-
-            showMessage() {
-                const message = document.getElementById('message3d');
-                message.style.display = 'block';
-                
-                setTimeout(() => {
-                    message.style.opacity = '1';
-                }, 100);
-            }
-
-            create3DSnowflakes() {
-                const scene = document.getElementById('sceneContainer');
-                const snowflakes = ['❄', '✨', '💎', '⭐', '🔸'];
-                
-                for (let i = 0; i < 50; i++) {
+                for (let i = 0; i < 40; i++) {
                     const snowflake = document.createElement('div');
-                    snowflake.className = 'snowflake-3d';
+                    snowflake.className = 'snowflake';
                     snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
                     
                     const startX = Math.random() * 100;
-                    const startZ = Math.random() * 2000 - 1000;
                     const delay = Math.random() * 10;
-                    const duration = Math.random() * 10 + 10;
-                    const size = Math.random() * 20 + 10;
+                    const duration = Math.random() * 8 + 8;
+                    const size = Math.random() * 20 + 15;
                     
                     snowflake.style.left = startX + 'vw';
                     snowflake.style.animationDelay = delay + 's';
                     snowflake.style.animationDuration = duration + 's';
                     snowflake.style.fontSize = size + 'px';
-                    snowflake.style.transform = `translateZ(${startZ}px)`;
                     
-                    scene.appendChild(snowflake);
+                    snowContainer.appendChild(snowflake);
                 }
+            }
+
+            createRainbowText() {
+                const textElement = document.getElementById('loadingText');
+                textElement.innerHTML = '';
+                
+                const words = this.loadingText.split(' ');
+                
+                words.forEach((word, wordIndex) => {
+                    const wordSpan = document.createElement('span');
+                    wordSpan.className = 'rainbow-text';
+                    wordSpan.style.marginRight = '10px';
+                    
+                    for (let i = 0; i < word.length; i++) {
+                        const charSpan = document.createElement('span');
+                        charSpan.className = 'rainbow-char';
+                        charSpan.textContent = word[i];
+                        charSpan.style.setProperty('--char-index', wordIndex * word.length + i);
+                        wordSpan.appendChild(charSpan);
+                    }
+                    
+                    textElement.appendChild(wordSpan);
+                });
+            }
+
+            async startLoading() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                const loadingBar = document.getElementById('loadingBar');
+                
+                loadingScreen.style.display = 'flex';
+                document.querySelector('.hack-button').style.display = 'none';
+                
+                this.createRainbowText();
+                
+                this.music.play().catch(e => {
+                    console.log('Music autoplay blocked');
+                });
+                
+                const totalTime = 5000;
+                const interval = 50;
+                const steps = totalTime / interval;
+                const progressPerStep = 100 / steps;
+                
+                for (let i = 0; i <= steps; i++) {
+                    loadingBar.style.width = (i * progressPerStep) + '%';
+                    await this.delay(interval);
+                }
+                
+                await this.showMessage();
+            }
+
+            async showMessage() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                const messageScreen = document.getElementById('messageScreen');
+                
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.transition = 'opacity 1.5s ease';
+                
+                await this.delay(1500);
+                
+                loadingScreen.style.display = 'none';
+                messageScreen.style.display = 'flex';
+                
+                setTimeout(() => {
+                    messageScreen.style.opacity = '1';
+                }, 100);
             }
 
             delay(ms) {
@@ -519,20 +417,35 @@
             }
         }
 
-        const hackSystem = new Advanced5DHackSystem();
+        const hackSystem = new HackSystem();
 
-        function startHackSequence() {
+        function startHack() {
             hackSystem.startLoading();
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const style = document.createElement('style');
-            style.textContent = `
-                body {
-                    cursor: none !important;
+        function toggleMusic() {
+            const music = document.getElementById('backgroundMusic');
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                const music = document.getElementById('backgroundMusic');
+                if (music.paused) {
+                    music.play();
+                } else {
+                    music.pause();
                 }
-            `;
-            document.head.appendChild(style);
+            }
+        });
+
+        window.addEventListener('load', function() {
+            document.getElementById('backgroundMusic').volume = 0.7;
         });
     </script>
 </body>

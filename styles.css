@@ -1,0 +1,64 @@
+/* Additional styles for enhanced effects */
+.special-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,12,0.95), rgba(10,10,12,0.98));
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(8px);
+}
+
+.special-inner {
+    width: 90%;
+    max-width: 800px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.98));
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(255,105,180,0.2);
+}
+
+.romantic-text {
+    font-size: 32px;
+    color: #ff4d8a;
+    font-weight: 900;
+    margin-bottom: 30px;
+    line-height: 1.4;
+    text-shadow: 0 4px 12px rgba(255,77,138,0.3);
+}
+
+.gif-container {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(255,77,138,0.25);
+}
+
+.gif-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special 20/10 Experience</title>
+    <title>Hack Experience 20/10 - 5D</title>
     <style>
         * {
             margin: 0;
@@ -12,424 +12,528 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Courier New', monospace;
             background: #000;
-            color: white;
+            color: #00ff00;
             overflow: hidden;
             height: 100vh;
+            cursor: none;
         }
 
-        .hack-container {
+        .scene-container {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            perspective: 2000px;
+            transform-style: preserve-3d;
+        }
+
+        .hack-button-3d {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg);
+            padding: 30px 60px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+            border: 3px solid #00ff00;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            animation: hackPulse 2s infinite, hackGlow 1s infinite alternate;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
             z-index: 1000;
         }
 
-        .hack-button {
-            padding: 20px 50px;
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff0066, #ff00ff, #6600ff);
-            border: none;
-            border-radius: 50px;
-            color: white;
-            cursor: pointer;
-            animation: pulse 2s infinite, glow 1.5s infinite alternate;
-            box-shadow: 0 0 30px rgba(255, 0, 102, 0.5);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .hack-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 50px rgba(255, 0, 102, 0.8);
+        .hack-button-3d:hover {
             animation: none;
+            transform: translate(-50%, -50%) rotateX(10deg) rotateY(10deg) scale(1.1);
+            box-shadow: 0 0 50px #00ff00;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes hackPulse {
+            0%, 100% { transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg) scale(1); }
+            50% { transform: translate(-50%, -50%) rotateX(5deg) rotateY(5deg) scale(1.05); }
         }
 
-        @keyframes glow {
-            from { box-shadow: 0 0 30px rgba(255, 0, 102, 0.5); }
-            to { box-shadow: 0 0 60px rgba(255, 0, 255, 0.8); }
+        @keyframes hackGlow {
+            from { box-shadow: 0 0 20px #00ff00; }
+            to { box-shadow: 0 0 40px #00ff00, 0 0 60px #00ff00; }
         }
 
-        .matrix-code {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.3;
-            z-index: -1;
-        }
-
-        .hidden-content {
-            display: none;
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .scene-5d {
+        .matrix-code-3d {
             position: absolute;
             width: 100%;
             height: 100%;
-            perspective: 1000px;
             transform-style: preserve-3d;
         }
 
-        .particle-3d {
+        .matrix-char {
             position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: float3d 10s infinite linear;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            animation: matrixFall 3s linear infinite;
             transform-style: preserve-3d;
         }
 
-        @keyframes float3d {
-            0% { transform: translate3d(0, 0, -1000px) rotateX(0deg) rotateY(0deg); }
-            100% { transform: translate3d(0, 0, 1000px) rotateX(360deg) rotateY(360deg); }
-        }
-
-        .snowflake {
-            position: absolute;
-            color: #fff;
-            font-size: 20px;
-            animation: snowFall 10s linear infinite;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-        }
-
-        @keyframes snowFall {
+        @keyframes matrixFall {
             0% {
-                transform: translate3d(0, -100px, 0) rotate(0deg);
+                transform: translateY(-100px) translateZ(-1000px) rotateX(0deg);
                 opacity: 1;
             }
             100% {
-                transform: translate3d(var(--end-x), 100vh, 0) rotate(360deg);
+                transform: translateY(100vh) translateZ(1000px) rotateX(360deg);
                 opacity: 0;
             }
         }
 
-        .message-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .title-2010 {
-            font-size: 4rem;
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff, #c56cf0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            animation: titleGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes titleGlow {
-            from { text-shadow: 0 0 20px rgba(255, 107, 107, 0.5); }
-            to { text-shadow: 0 0 40px rgba(77, 150, 255, 0.8); }
-        }
-
-        .wish-message {
-            font-size: 1.5rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: #fff;
-            max-width: 600px;
-        }
-
-        .flower-decoration {
-            position: absolute;
-            font-size: 2rem;
-            animation: flowerFloat 8s ease-in-out infinite;
-        }
-
-        @keyframes flowerFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
-        }
-
-        .neon-border {
-            position: absolute;
+        .loading-screen {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: 2px solid transparent;
-            border-radius: 20px;
-            animation: neonFlash 2s linear infinite;
-            pointer-events: none;
+            background: #000;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
         }
 
-        @keyframes neonFlash {
-            0%, 100% { border-color: #ff0066; box-shadow: 0 0 10px #ff0066; }
-            25% { border-color: #00ff99; box-shadow: 0 0 20px #00ff99; }
-            50% { border-color: #0066ff; box-shadow: 0 0 30px #0066ff; }
-            75% { border-color: #ff00ff; box-shadow: 0 0 20px #ff00ff; }
+        .loading-bar-container {
+            width: 60%;
+            height: 30px;
+            background: #333;
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
         }
 
-        .hacking-text {
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #00cc00);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 13px;
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: textColorChange 3s infinite;
+        }
+
+        @keyframes textColorChange {
+            0% { color: #00ff00; }
+            25% { color: #ff0000; }
+            50% { color: #0000ff; }
+            75% { color: #ffff00; }
+            100% { color: #00ff00; }
+        }
+
+        .hacker-sticker {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            font-family: 'Courier New', monospace;
-            color: #00ff00;
-            font-size: 1.2rem;
+            font-size: 4rem;
             opacity: 0;
+            transform: scale(0) rotate(0deg);
+            transition: all 0.5s ease;
         }
 
-        .audio-control {
+        .sticker-visible {
+            opacity: 1;
+            transform: scale(1) rotate(360deg);
+        }
+
+        .message-3d {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 50px;
+            border-radius: 20px;
+            border: 3px solid #00ff00;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            display: none;
+            z-index: 1500;
+        }
+
+        .message-title {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+            transform: translateZ(50px);
+        }
+
+        .message-content {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: white;
+            margin-bottom: 20px;
+            transform: translateZ(30px);
+        }
+
+        .snowflake-3d {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            animation: snow3d 15s linear infinite;
+            transform-style: preserve-3d;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes snow3d {
+            0% {
+                transform: translateY(-100px) translateZ(-1000px) rotateX(0deg) rotateY(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) translateZ(1000px) rotateX(360deg) rotateY(360deg);
+                opacity: 0;
+            }
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .shooting-star {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, white);
+            height: 2px;
+            animation: shoot 3s infinite;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(-100px) translateY(-100px) translateZ(-500px) rotate(45deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh) translateZ(500px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        .cursor-3d {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+            width: 20px;
+            height: 20px;
+            background: #00ff00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
         }
     </style>
 </head>
 <body>
-    <div class="hack-container" id="hackContainer">
-        <div class="matrix-code" id="matrixCode"></div>
-        <button class="hack-button" onclick="initiateHack()">HACK 20/10</button>
-        <div class="hacking-text" id="hackingText"></div>
+    <div class="cursor-3d" id="cursor3d"></div>
+
+    <div class="scene-container" id="sceneContainer">
+        <div class="matrix-code-3d" id="matrixCode3d"></div>
+        <button class="hack-button-3d" onclick="startHackSequence()">HACK 20/10</button>
     </div>
 
-    <div class="hidden-content" id="hiddenContent">
-        <div class="scene-5d" id="scene5d"></div>
-        <div class="message-container">
-            <div class="neon-border"></div>
-            <h1 class="title-2010">Chúc Mừng 20/10</h1>
-            <div class="wish-message">
-                <p>Nhân ngày Phụ nữ Việt Nam 20/10, xin gửi lời chúc tốt đẹp nhất đến những người phụ nữ tuyệt vời!</p>
-                <br>
-                <p>Chúc các bạn luôn xinh đẹp, thành công và hạnh phúc. Cảm ơn vì tất cả những đóng góp thầm lặng mà lớn lao!</p>
-            </div>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text" id="loadingText">Đang lấy dữ liệu máy...</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
         </div>
-        <div class="audio-control">
-            <audio id="backgroundMusic" loop>
-                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-            </audio>
-            <button onclick="toggleMusic()" style="padding: 10px 20px; background: #ff0066; color: white; border: none; border-radius: 5px; cursor: pointer;">🎵 Nhạc nền</button>
+        <div id="stickerContainer"></div>
+    </div>
+
+    <div class="message-3d" id="message3d">
+        <h1 class="message-title">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</h1>
+        <div class="message-content">
+            <p>Gửi đến những người phụ nữ tuyệt vời nhất,</p>
+            <p>Nhân ngày 20/10, chúc các bạn luôn:</p>
+            <p>💖 Xinh đẹp rạng ngời</p>
+            <p>💖 Thành công rực rỡ</p>
+            <p>💖 Hạnh phúc trọn vẹn</p>
+            <p>💖 Luôn tỏa sáng như những vì sao!</p>
         </div>
     </div>
 
     <script>
-        class AdvancedHackSystem {
+        class Advanced5DHackSystem {
             constructor() {
-                this.matrixChars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                this.hackingPhrases = [
-                    "Đang kết nối đến trái tim...",
-                    "Mã hóa tình cảm...",
-                    "Tải lời chúc đặc biệt...",
-                    "Kích hoạt cảm xúc...",
-                    "Hoàn tất quá trình yêu thương..."
-                ];
-                this.initMatrix();
+                this.matrixChars = '01アァカサタナハマヤャラワABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                this.hackerStickers = ['💻', '🔐', '🖥️', '⚡', '🔒', '🌐', '📡', '💾'];
+                this.stickerInterrupts = [35, 65, 85];
+                this.currentProgress = 0;
+                this.isInterrupted = false;
+                this.mouseX = 0;
+                this.mouseY = 0;
+                this.init();
             }
 
-            initMatrix() {
-                const matrixCode = document.getElementById('matrixCode');
-                const columns = Math.floor(window.innerWidth / 20);
-                
-                for (let i = 0; i < columns; i++) {
-                    const column = document.createElement('div');
-                    column.style.position = 'absolute';
-                    column.style.top = '-100px';
-                    column.style.left = (i * 20) + 'px';
-                    column.style.color = '#00ff00';
-                    column.style.fontFamily = 'Courier New, monospace';
-                    column.style.fontSize = '18px';
-                    column.style.writingMode = 'vertical-rl';
-                    column.style.textOrientation = 'mixed';
-                    column.style.animation = `matrixRain ${Math.random() * 3 + 2}s linear infinite`;
-                    column.style.animationDelay = Math.random() * 5 + 's';
+            init() {
+                this.create3DMatrix();
+                this.createStars();
+                this.createShootingStars();
+                this.initMouseTracking();
+            }
+
+            create3DMatrix() {
+                const container = document.getElementById('matrixCode3d');
+                for (let i = 0; i < 100; i++) {
+                    const char = document.createElement('div');
+                    char.className = 'matrix-char';
+                    char.textContent = this.matrixChars.charAt(Math.floor(Math.random() * this.matrixChars.length));
                     
-                    let text = '';
-                    for (let j = 0; j < 30; j++) {
-                        text += this.matrixChars.charAt(Math.floor(Math.random() * this.matrixChars.length)) + '\n';
-                    }
-                    column.textContent = text;
+                    const startX = Math.random() * 100;
+                    const startZ = Math.random() * 2000 - 1000;
+                    const delay = Math.random() * 5;
+                    const duration = Math.random() * 5 + 3;
                     
-                    matrixCode.appendChild(column);
+                    char.style.left = startX + 'vw';
+                    char.style.animationDelay = delay + 's';
+                    char.style.animationDuration = duration + 's';
+                    char.style.transform = `translateZ(${startZ}px)`;
+                    
+                    container.appendChild(char);
                 }
-
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes matrixRain {
-                        0% { transform: translateY(-100px); opacity: 1; }
-                        80% { opacity: 1; }
-                        100% { transform: translateY(100vh); opacity: 0; }
-                    }
-                `;
-                document.head.appendChild(style);
             }
 
-            async startHackSequence() {
-                const hackingText = document.getElementById('hackingText');
-                
-                for (const phrase of this.hackingPhrases) {
-                    hackingText.textContent = phrase;
-                    hackingText.style.opacity = '1';
-                    hackingText.style.animation = 'typing 2s steps(40, end)';
+            createStars() {
+                const scene = document.getElementById('sceneContainer');
+                for (let i = 0; i < 200; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
                     
-                    await this.delay(2000);
-                    hackingText.style.opacity = '0';
-                    await this.delay(500);
+                    const size = Math.random() * 3 + 1;
+                    const posX = Math.random() * 100;
+                    const posY = Math.random() * 100;
+                    const posZ = Math.random() * 2000 - 1000;
+                    const delay = Math.random() * 5;
+                    
+                    star.style.width = size + 'px';
+                    star.style.height = size + 'px';
+                    star.style.left = posX + 'vw';
+                    star.style.top = posY + 'vh';
+                    star.style.animationDelay = delay + 's';
+                    star.style.transform = `translateZ(${posZ}px)`;
+                    
+                    scene.appendChild(star);
+                }
+            }
+
+            createShootingStars() {
+                const scene = document.getElementById('sceneContainer');
+                setInterval(() => {
+                    const shootingStar = document.createElement('div');
+                    shootingStar.className = 'shooting-star';
+                    
+                    const startX = Math.random() * 100;
+                    const startY = Math.random() * 100;
+                    const delay = Math.random() * 10;
+                    
+                    shootingStar.style.left = startX + 'vw';
+                    shootingStar.style.top = startY + 'vh';
+                    shootingStar.style.animationDelay = delay + 's';
+                    shootingStar.style.width = Math.random() * 100 + 50 + 'px';
+                    
+                    scene.appendChild(shootingStar);
+                    
+                    setTimeout(() => {
+                        shootingStar.remove();
+                    }, 3000);
+                }, 2000);
+            }
+
+            initMouseTracking() {
+                document.addEventListener('mousemove', (e) => {
+                    this.mouseX = e.clientX;
+                    this.mouseY = e.clientY;
+                    
+                    const cursor = document.getElementById('cursor3d');
+                    cursor.style.left = (e.clientX - 10) + 'px';
+                    cursor.style.top = (e.clientY - 10) + 'px';
+                    
+                    this.update3DRotation();
+                });
+            }
+
+            update3DRotation() {
+                const scene = document.getElementById('sceneContainer');
+                const hackButton = document.querySelector('.hack-button-3d');
+                const message = document.getElementById('message3d');
+                
+                const rotateY = (this.mouseX / window.innerWidth - 0.5) * 60;
+                const rotateX = (this.mouseY / window.innerHeight - 0.5) * -60;
+                
+                scene.style.transform = `perspective(2000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                
+                if (hackButton.style.display !== 'none') {
+                    const buttonRotateY = (this.mouseX / window.innerWidth - 0.5) * 20;
+                    const buttonRotateX = (this.mouseY / window.innerHeight - 0.5) * -20;
+                    hackButton.style.transform = `translate(-50%, -50%) rotateX(${buttonRotateX}deg) rotateY(${buttonRotateY}deg)`;
+                }
+                
+                if (message.style.display === 'block') {
+                    const messageRotateY = (this.mouseX / window.innerWidth - 0.5) * 30;
+                    const messageRotateX = (this.mouseY / window.innerHeight - 0.5) * -30;
+                    message.style.transform = `translate(-50%, -50%) rotateX(${messageRotateX}deg) rotateY(${messageRotateY}deg)`;
+                }
+            }
+
+            async startLoading() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                const loadingBar = document.getElementById('loadingBar');
+                const loadingText = document.getElementById('loadingText');
+                const stickerContainer = document.getElementById('stickerContainer');
+                
+                loadingScreen.style.display = 'flex';
+                document.querySelector('.hack-button-3d').style.display = 'none';
+                
+                const totalTime = 10000;
+                const interval = 100;
+                const steps = totalTime / interval;
+                const progressPerStep = 100 / steps;
+                
+                for (let i = 0; i <= steps; i++) {
+                    if (this.isInterrupted) {
+                        await this.delay(1000);
+                        this.isInterrupted = false;
+                        continue;
+                    }
+                    
+                    this.currentProgress = i * progressPerStep;
+                    loadingBar.style.width = this.currentProgress + '%';
+                    
+                    if (this.stickerInterrupts.includes(Math.floor(this.currentProgress))) {
+                        await this.showHackerSticker(stickerContainer);
+                    }
+                    
+                    loadingText.style.color = this.getRandomColor();
+                    await this.delay(interval);
+                }
+                
+                await this.completeHack();
+            }
+
+            async showHackerSticker(container) {
+                this.isInterrupted = true;
+                
+                const sticker = document.createElement('div');
+                sticker.className = 'hacker-sticker';
+                sticker.textContent = this.hackerStickers[Math.floor(Math.random() * this.hackerStickers.length)];
+                sticker.style.left = Math.random() * 70 + 15 + '%';
+                sticker.style.top = Math.random() * 70 + 15 + '%';
+                
+                container.appendChild(sticker);
+                
+                setTimeout(() => {
+                    sticker.classList.add('sticker-visible');
+                }, 100);
+                
+                await this.delay(1500);
+                
+                sticker.classList.remove('sticker-visible');
+                await this.delay(500);
+                sticker.remove();
+                
+                this.isInterrupted = false;
+            }
+
+            getRandomColor() {
+                const colors = ['#00ff00', '#ff0000', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            async completeHack() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.transition = 'opacity 2s ease';
+                
+                await this.delay(2000);
+                
+                loadingScreen.style.display = 'none';
+                this.showMessage();
+                this.create3DSnowflakes();
+            }
+
+            showMessage() {
+                const message = document.getElementById('message3d');
+                message.style.display = 'block';
+                
+                setTimeout(() => {
+                    message.style.opacity = '1';
+                }, 100);
+            }
+
+            create3DSnowflakes() {
+                const scene = document.getElementById('sceneContainer');
+                const snowflakes = ['❄', '✨', '💎', '⭐', '🔸'];
+                
+                for (let i = 0; i < 50; i++) {
+                    const snowflake = document.createElement('div');
+                    snowflake.className = 'snowflake-3d';
+                    snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                    
+                    const startX = Math.random() * 100;
+                    const startZ = Math.random() * 2000 - 1000;
+                    const delay = Math.random() * 10;
+                    const duration = Math.random() * 10 + 10;
+                    const size = Math.random() * 20 + 10;
+                    
+                    snowflake.style.left = startX + 'vw';
+                    snowflake.style.animationDelay = delay + 's';
+                    snowflake.style.animationDuration = duration + 's';
+                    snowflake.style.fontSize = size + 'px';
+                    snowflake.style.transform = `translateZ(${startZ}px)`;
+                    
+                    scene.appendChild(snowflake);
                 }
             }
 
             delay(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
-
-            create5DScene() {
-                const scene = document.getElementById('scene5d');
-                
-                for (let i = 0; i < 200; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle-3d';
-                    
-                    const size = Math.random() * 10 + 2;
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
-                    particle.style.background = this.getRandomColor();
-                    particle.style.left = `${Math.random() * 100}vw`;
-                    particle.style.top = `${Math.random() * 100}vh`;
-                    particle.style.animationDelay = `${Math.random() * 10}s`;
-                    particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
-                    
-                    scene.appendChild(particle);
-                }
-
-                this.createSnowflakes();
-                this.createFlowers();
-            }
-
-            createSnowflakes() {
-                const snowflakes = ['❄', '☃', '⛄', '✨', '💫'];
-                const container = document.getElementById('hiddenContent');
-                
-                for (let i = 0; i < 50; i++) {
-                    const snowflake = document.createElement('div');
-                    snowflake.className = 'snowflake';
-                    snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-                    snowflake.style.left = `${Math.random() * 100}vw`;
-                    snowflake.style.fontSize = `${Math.random() * 20 + 10}px`;
-                    snowflake.style.opacity = Math.random() * 0.7 + 0.3;
-                    snowflake.style.setProperty('--end-x', `${Math.random() * 100 - 50}px`);
-                    snowflake.style.animationDuration = `${Math.random() * 10 + 5}s`;
-                    snowflake.style.animationDelay = `${Math.random() * 5}s`;
-                    
-                    container.appendChild(snowflake);
-                }
-            }
-
-            createFlowers() {
-                const flowers = ['🌸', '🌺', '🌷', '🌹', '💮', '🏵️', '🥀', '🌻'];
-                const container = document.getElementById('hiddenContent');
-                
-                for (let i = 0; i < 20; i++) {
-                    const flower = document.createElement('div');
-                    flower.className = 'flower-decoration';
-                    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
-                    flower.style.left = `${Math.random() * 100}vw`;
-                    flower.style.top = `${Math.random() * 100}vh`;
-                    flower.style.fontSize = `${Math.random() * 30 + 20}px`;
-                    flower.style.animationDelay = `${Math.random() * 5}s`;
-                    flower.style.animationDuration = `${Math.random() * 5 + 3}s`;
-                    
-                    container.appendChild(flower);
-                }
-            }
-
-            getRandomColor() {
-                const colors = [
-                    'rgba(255, 107, 107, 0.8)',
-                    'rgba(255, 217, 61, 0.8)',
-                    'rgba(107, 207, 127, 0.8)',
-                    'rgba(77, 150, 255, 0.8)',
-                    'rgba(197, 108, 240, 0.8)',
-                    'rgba(255, 255, 255, 0.8)'
-                ];
-                return colors[Math.floor(Math.random() * colors.length)];
-            }
         }
 
-        const hackSystem = new AdvancedHackSystem();
+        const hackSystem = new Advanced5DHackSystem();
 
-        async function initiateHack() {
-            const hackButton = document.querySelector('.hack-button');
-            const hackContainer = document.getElementById('hackContainer');
-            const hiddenContent = document.getElementById('hiddenContent');
-            
-            hackButton.disabled = true;
-            hackButton.textContent = 'ĐANG HACK...';
-            
-            await hackSystem.startHackSequence();
-            
-            hackContainer.style.animation = 'fadeOut 1s forwards';
-            
-            setTimeout(() => {
-                hackContainer.style.display = 'none';
-                hiddenContent.style.display = 'block';
-                
-                hackSystem.create5DScene();
-                
-                document.getElementById('backgroundMusic').play().catch(e => console.log('Auto-play prevented'));
-                
-                document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)';
-            }, 1000);
+        function startHackSequence() {
+            hackSystem.startLoading();
         }
 
-        function toggleMusic() {
-            const music = document.getElementById('backgroundMusic');
-            if (music.paused) {
-                music.play();
-            } else {
-                music.pause();
-            }
-        }
-
-        document.addEventListener('mousemove', (e) => {
-            const particles = document.querySelectorAll('.particle-3d');
-            particles.forEach(particle => {
-                const depth = Math.random() * 1000 - 500;
-                particle.style.transform = `translate3d(${e.clientX/50}px, ${e.clientY/50}px, ${depth}px)`;
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            const style = document.createElement('style');
+            style.textContent = `
+                body {
+                    cursor: none !important;
+                }
+            `;
+            document.head.appendChild(style);
         });
-
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; display: none; }
-            }
-            @keyframes typing {
-                from { width: 0; }
-                to { width: 100%; }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>

@@ -1,52 +1,395 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hanh Đẹp Trai - Minecraft Theme</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng 20/10 - Quà Tặng GitHub Đặc Biệt</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ff6b6b; }
+            to { text-shadow: 0 0 30px #ffd93d, 0 0 40px #6bcf7f; }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .gift-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .github-card {
+            background: linear-gradient(135deg, #24292e 0%, #3a3f44 100%);
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .github-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .repo-name {
+            font-size: 1.8rem;
+            color: #58a6ff;
+            margin-bottom: 15px;
+        }
+
+        .repo-desc {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background: rgba(88, 166, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            border: 1px solid #58a6ff;
+        }
+
+        .gift-button {
+            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .gift-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        .flowers {
+            position: absolute;
+            font-size: 2rem;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: heartFloat 8s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes heartFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff6b6b;
+            animation: confettiFall 5s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(720deg); }
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 5px solid #ff6b6b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
-  <canvas id="fireworks"></canvas>
+    <div class="particles" id="particles"></div>
+    <div class="floating-hearts" id="hearts"></div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</h1>
+            <p class="subtitle">Món quà công nghệ đặc biệt dành tặng bạn</p>
+        </header>
 
-  <div id="fade">
-    <h1 id="title">
-      <span class="letter">H</span><span class="letter">a</span><span class="letter">n</span><span class="letter">h</span>
-      <span class="letter"> </span><span class="letter">Đ</span><span class="letter">ẹ</span><span class="letter">p</span>
-      <span class="letter"> </span><span class="letter">T</span><span class="letter">r</span><span class="letter">a</span><span class="letter">i</span>
-    </h1>
-    <div class="info-bar">
-      <div id="dateDisplay"></div>
-      <div id="clock"></div>
+        <div class="gift-section">
+            <div class="message-box">
+                <h2>Lời chúc đặc biệt</h2>
+                <p>Nhân ngày 20/10, xin gửi tặng bạn món quà công nghệ ý nghĩa - một GitHub repository được thiết kế đặc biệt để hỗ trợ sự phát triển và sáng tạo của bạn trong thế giới lập trình.</p>
+            </div>
+
+            <div class="github-card">
+                <h3 class="repo-name">Women-In-Tech-Special-20-10</h3>
+                <p class="repo-desc">Bộ sưu tập công cụ, tài nguyên và dự án mẫu dành riêng cho các nhà phát triển nữ</p>
+                
+                <div class="tech-stack">
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">AI/ML</span>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h4>Starter Templates</h4>
+                        <p>Bộ template dự án sẵn sàng sử dụng</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h4>UI Components</h4>
+                        <p>Component đẹp và độc đáo</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h4>AI Tools</h4>
+                        <p>Công cụ AI hỗ trợ phát triển</p>
+                    </div>
+                </div>
+
+                <button class="gift-button" onclick="claimGift()">Nhận Quà Ngay</button>
+            </div>
+        </div>
     </div>
 
-    <div class="menu">
-      <a href="https://infomangcuatui.blogspot.com/2025/05/info-mang-cua-tui.html" target="_blank">Info của tui</a>
-      <a href="https://hanhotp.blogspot.com/2025/05/hanh-ep-trai-body-font-family-arial.html?m=1" target="_blank">Free Fire (Đã Cập nhật)</a>
-      <a href="#" target="_blank">Liên Quân</a>
-      <a href="#" target="_blank">Play Together</a>
-      <a href="#" target="_blank">Blockman Go</a>
-    </div>
+    <script>
+        class ParticleSystem {
+            constructor() {
+                this.particles = [];
+                this.hearts = [];
+                this.confetti = [];
+                this.initParticles();
+                this.initHearts();
+                this.startAnimations();
+            }
 
-    <div class="footer">
-      <b>Bản quyền thuộc về
-        <a href="https://zalo.me/g/xwohrt294" class="admin-link">Bùi Đức Hoàng Anh</a>
-      </b>
-    </div>
-  </div>
+            initParticles() {
+                const container = document.getElementById('particles');
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    this.setParticleStyle(particle);
+                    container.appendChild(particle);
+                    this.particles.push(particle);
+                }
+            }
 
-  <div id="popup">
-    <p><b>TikTok:</b> @iamnotxxx</p>
-    <p><b>Youtube:</b> Hoang Anh OTP</p>
-    <button id="close-btn">Đóng thông báo</button>
-  </div>
+            setParticleStyle(particle) {
+                const size = Math.random() * 20 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                particle.style.animationDelay = `${Math.random() * 6}s`;
+                particle.style.background = `rgba(255, ${Math.random() * 255}, ${Math.random() * 255}, 0.4)`;
+            }
 
-  <audio id="bg-music" loop>
-    <source src="assets/audio/background_music.mp3" type="audio/mpeg">
-    Trình duyệt không hỗ trợ âm thanh.
-  </audio>
+            initHearts() {
+                const container = document.getElementById('hearts');
+                for (let i = 0; i < 20; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '💖';
+                    this.setHeartStyle(heart);
+                    container.appendChild(heart);
+                    this.hearts.push(heart);
+                }
+            }
 
-  <script src="scripts.js"></script>
+            setHeartStyle(heart) {
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDelay = `${Math.random() * 8}s`;
+                heart.style.fontSize = `${Math.random() * 20 + 15}px`;
+            }
+
+            startAnimations() {
+                this.createConfetti();
+                setInterval(() => this.createConfetti(), 2000);
+            }
+
+            createConfetti() {
+                const colors = ['#ff6b6b', '#ffd93d', '#6bcf7f', '#4d96ff', '#c56cf0'];
+                for (let i = 0; i < 30; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = `${Math.random() * 100}vw`;
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = `${Math.random() * 5}s`;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 5000);
+                }
+            }
+        }
+
+        function claimGift() {
+            const button = document.querySelector('.gift-button');
+            button.textContent = '🎁 Đang chuẩn bị quà...';
+            button.disabled = true;
+
+            setTimeout(() => {
+                button.innerHTML = '🎉 Quà đã sẵn sàng! Truy cập GitHub để nhận';
+                button.style.background = 'linear-gradient(45deg, #6bcf7f, #4d96ff)';
+                
+                const repoUrl = 'https://github.com/special-gift/Women-In-Tech-Special-20-10';
+                window.open(repoUrl, '_blank');
+            }, 2000);
+        }
+
+        function createFlowers() {
+            const flowers = ['🌸', '🌺', '🌷', '💮', '🏵️'];
+            setInterval(() => {
+                const flower = document.createElement('div');
+                flower.className = 'flowers';
+                flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = `${Math.random() * 100}vw`;
+                flower.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                document.body.appendChild(flower);
+                
+                setTimeout(() => flower.remove(), 15000);
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new ParticleSystem();
+            createFlowers();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            const hearts = document.createElement('div');
+            hearts.className = 'heart';
+            hearts.innerHTML = '💖';
+            hearts.style.left = `${e.clientX}px`;
+            hearts.style.top = `${e.clientY}px`;
+            hearts.style.animation = 'heartFloat 4s linear forwards';
+            document.getElementById('hearts').appendChild(hearts);
+            
+            setTimeout(() => hearts.remove(), 4000);
+        });
+    </script>
 </body>
 </html>

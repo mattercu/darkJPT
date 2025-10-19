@@ -1,375 +1,361 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Chúc mừng 20/10 🌸</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <style>
-/* ===== ROOT VARIABLES ===== */
-:root {
-  --pink1:#ffd7ea;
-  --pink2:#ffecf8;
-  --accent:#ff4d8a;
-  --accent-2:#ff9ac4;
-  --glass: rgba(255,255,255,0.92);
-}
+  :root{
+    --pink1:#ffd7ea;
+    --pink2:#ffecf8;
+    --accent:#ff4d8a;
+    --accent-2:#ff9ac4;
+    --glass: rgba(255,255,255,0.92);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background: linear-gradient(135deg,var(--pink1),var(--pink2));
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    display:flex;align-items:center;justify-content:center;
+    color:#3a2a34;padding:18px;
+    -webkit-font-smoothing:antialiased;
+  }
 
-/* ===== RESET ===== */
-* {margin:0;padding:0;box-sizing:border-box;}
-html, body {height:100%;}
-body {
-  font-family: "Inter", "Segoe UI", Arial, sans-serif;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: linear-gradient(135deg, var(--pink1), var(--pink2));
-  color:#3a2a34;
-  padding:18px;
-}
+  .wrap{
+    width:100%;max-width:980px;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.98));
+    border-radius:20px;padding:28px;box-shadow: 0 20px 60px rgba(140,50,100,0.08); position:relative; overflow:hidden;
+  }
 
-/* ===== WRAP ===== */
-.wrap {
-  width:100%;
-  max-width:980px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.98));
-  border-radius:20px;
-  padding:28px;
-  box-shadow: 0 20px 60px rgba(140,50,100,0.08);
-  position:relative;
-  overflow:hidden;
-}
+  .heading{
+    display:flex;gap:14px;align-items:center;margin-bottom:8px;
+  }
+  .logo{
+    width:74px;height:74px;border-radius:16px;background:linear-gradient(135deg,#fff0f6,#ffdff0);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:26px;
+    box-shadow: 0 8px 22px rgba(255,90,150,0.12);
+  }
+  h1{font-size:24px;color:var(--accent);margin:0}
+  p.sub{color:#6b4a63;margin-top:6px;font-weight:600}
 
-/* ===== HEADER ===== */
-.heading {
-  display:flex;
-  gap:14px;
-  align-items:center;
-  margin-bottom:8px;
-}
+  /* Main stage */
+  .stage{display:flex;gap:26px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:12px}
+  .left{flex:1 1 420px;min-width:260px}
+  .right{width:360px;min-width:240px;height:420px;border-radius:16px;background:linear-gradient(180deg,#fffafc,#fff0f7);display:flex;align-items:center;justify-content:center;position:relative;box-shadow: 0 18px 50px rgba(160,60,120,0.08);overflow:hidden}
+  .right .heart{position:absolute;top:18px;right:18px;font-size:28px}
 
-.logo {
-  width:74px;
-  height:74px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#fff0f6,#ffdff0);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  font-weight:800;
-  font-size:26px;
-  box-shadow:0 8px 22px rgba(255,90,150,0.12);
-}
+  /* Main question area */
+  .question-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.82));box-shadow: 0 12px 30px rgba(120,40,80,0.06)}
+  .question-text{font-size:22px;color:#5a3750;font-weight:800;margin-bottom:18px;text-align:center}
+  .buttons{display:flex;gap:18px;align-items:center}
+  .btn{
+    border:none;padding:14px 26px;border-radius:12px;font-weight:800;font-size:16px;cursor:pointer;
+    box-shadow: 0 10px 28px rgba(140,50,100,0.08); transition: transform .18s ease, box-shadow .18s ease, width .18s ease, height .18s ease;
+    user-select:none;
+  }
+  .btn:active{transform:scale(.98)}
+  .btn-no{background:linear-gradient(180deg,#fff7fb,#ffeef6); color:#b04a7f;border:2px solid rgba(176,74,127,0.08)}
+  .btn-yes{background:linear-gradient(90deg,#ff6b9a,#ff8cc6); color:white;border:0}
 
-h1 {
-  font-size:24px;
-  color:var(--accent);
-  margin:0;
-}
+  /* Loading overlay */
+  .loading-screen{position:fixed;inset:0;background:linear-gradient(180deg, rgba(10,10,12,0.55), rgba(10,10,12,0.85));display:none;align-items:center;justify-content:center;z-index:1300;backdrop-filter: blur(6px)}
+  .loading-card{width:90%;max-width:720px;background:var(--glass);padding:26px;border-radius:14px;text-align:center;box-shadow: 0 30px 80px rgba(10,10,12,0.18)}
+  .loading-title{font-family:"Courier New", monospace;font-weight:800;color:#7b4b66;margin-bottom:12px}
+  .progress-outer{width:100%;height:18px;background:rgba(0,0,0,0.06);border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.5)}
+  .progress-inner{height:100%;width:0%;background:linear-gradient(90deg,#ff6b9a,#ffd36f,#ffd3f0);transition:width .12s linear}
 
-p.sub {
-  color:#6b4a63;
-  margin-top:6px;
-  font-weight:600;
-}
+  /* Message screen */
+  .message-screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:1500}
+  .message-inner{width:92%;max-width:820px;padding:26px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.995));text-align:center;box-shadow: 0 30px 80px rgba(160,60,120,0.08)}
+  .msg-title{font-size:36px;color:#ff4d8a;font-weight:900;margin-bottom:6px}
+  .msg-sub{color:#6b4a63;margin-bottom:12px}
+  .wish-lines{font-size:18px;color:#5a3a52;line-height:1.7;margin-bottom:12px;font-weight:600}
 
-/* ===== STAGE ===== */
-.stage {
-  display:flex;
-  gap:26px;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  margin-top:12px;
-}
+  /* particles layer */
+  .particles{position:fixed;inset:0;pointer-events:none;z-index:1400;overflow:hidden}
 
-.left {
-  flex:1 1 420px;
-  min-width:260px;
-}
+  /* Floating icons in right panel */
+  #bgIcons{position:absolute;inset:0;pointer-events:none;z-index:20}
 
-.right {
-  width:360px;
-  min-width:240px;
-  height:420px;
-  border-radius:16px;
-  background:linear-gradient(180deg,#fffafc,#fff0f7);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  box-shadow:0 18px 50px rgba(160,60,120,0.08);
-}
-
-.right .heart {
-  position:absolute;
-  top:18px;
-  right:18px;
-  font-size:28px;
-}
-
-/* ===== QUESTION ===== */
-.question-wrap {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:34px;
-  border-radius:14px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.82));
-  box-shadow:0 12px 30px rgba(120,40,80,0.06);
-}
-
-.question-text {
-  font-size:22px;
-  color:#5a3750;
-  font-weight:800;
-  margin-bottom:18px;
-  text-align:center;
-}
-
-.buttons {
-  display:flex;
-  gap:18px;
-  align-items:center;
-}
-
-.btn {
-  border:none;
-  padding:14px 26px;
-  border-radius:12px;
-  font-weight:800;
-  font-size:16px;
-  cursor:pointer;
-  box-shadow:0 10px 28px rgba(140,50,100,0.08);
-  transition: transform .18s ease, box-shadow .18s ease, width .18s ease, height .18s ease;
-  user-select:none;
-}
-
-.btn:active {transform:scale(.98);}
-.btn-no {background:linear-gradient(180deg,#fff7fb,#ffeef6); color:#b04a7f; border:2px solid rgba(176,74,127,0.08);}
-.btn-yes {background:linear-gradient(90deg,#ff6b9a,#ff8cc6); color:white; border:0;}
-
-/* ===== LOADING SCREEN ===== */
-.loading-screen {
-  position:fixed;
-  inset:0;
-  background:linear-gradient(180deg, rgba(10,10,12,0.55), rgba(10,10,12,0.85));
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:1300;
-  backdrop-filter: blur(6px);
-}
-
-.loading-card {
-  width:90%;
-  max-width:720px;
-  background:var(--glass);
-  padding:26px;
-  border-radius:14px;
-  text-align:center;
-  box-shadow:0 30px 80px rgba(10,10,12,0.18);
-}
-
-.loading-title {
-  font-family:"Courier New", monospace;
-  font-weight:800;
-  color:#7b4b66;
-  margin-bottom:12px;
-}
-
-.progress-outer {
-  width:100%;
-  height:18px;
-  background:rgba(0,0,0,0.06);
-  border-radius:12px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,0.5);
-}
-
-.progress-inner {
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#ff6b9a,#ffd36f,#ffd3f0);
-  transition:width .12s linear;
-}
-
-/* ===== MESSAGE SCREEN ===== */
-.message-screen {
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:1500;
-}
-
-.message-inner {
-  width:92%;
-  max-width:820px;
-  padding:26px;
-  border-radius:16px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.995));
-  text-align:center;
-  box-shadow:0 30px 80px rgba(160,60,120,0.08);
-  position:relative;
-  overflow:hidden;
-}
-
-.msg-title {
-  font-size:36px;
-  color:#ff4d8a;
-  font-weight:900;
-  margin-bottom:6px;
-}
-
-.msg-sub {
-  color:#6b4a63;
-  margin-bottom:12px;
-}
-
-.wish-lines {
-  font-size:18px;
-  color:#5a3a52;
-  line-height:1.7;
-  margin-bottom:12px;
-  font-weight:600;
-}
-
-/* ===== DECORATIONS ===== */
-.decor-top, .decor-bottom {
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:center;
-  font-size:22px;
-}
-
-.decor-top {top:10px;}
-.decor-bottom {bottom:10px;}
-
-/* ===== PARTICLES ===== */
-.particles {position:fixed; inset:0; pointer-events:none; z-index:1400; overflow:hidden;}
-.particles span {position:absolute;font-size:18px;animation:fall 8s linear forwards;opacity:.8;}
-@keyframes fall {0%{transform:translateY(-50px)} 100%{transform:translateY(100vh);}}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width:760px){
-  .stage{flex-direction:column-reverse;align-items:center}
-  .right{width:92%;height:340px}
-  .question-text{font-size:20px}
-}
+  /* small responsive */
+  @media (max-width:760px){
+    .stage{flex-direction:column-reverse;align-items:center}
+    .right{width:92%;height:340px}
+    .question-text{font-size:20px}
+  }
 </style>
 </head>
 <body>
-
-<div class="wrap">
-  <div class="heading">
-    <div class="logo">20</div>
-    <div>
-      <h1>Chúc mừng 20/10 — Ngày của nàng xinh 💐</h1>
-      <p class="sub">Click nút và xem điều dễ thương nè 💕</p>
+  <div class="wrap" role="main" aria-label="Chúc mừng 20/10">
+    <div class="heading">
+      <div class="logo">20</div>
+      <div>
+        <h1>Chúc mừng 20/10 — Ngày của những nàng xinh 💐</h1>
+        <p class="sub">Một món quà ảo nhỏ nè — nhấn trả lời nhé!</p>
+      </div>
     </div>
-  </div>
 
-  <div class="stage">
-    <div class="left">
-      <div class="question-wrap">
-        <div class="question-text">Bạn trước màn hình có xinh không nè 🫣?</div>
-        <div class="buttons">
-          <button id="btnNo" class="btn btn-no">không</button>
-          <button id="btnYes" class="btn btn-yes">có</button>
+    <div class="stage">
+      <div class="left">
+        <div class="question-wrap" aria-labelledby="qtext">
+          <div id="qtext" class="question-text">Bạn trước màn hình có xinh không nè 🫣?</div>
+          <div class="buttons" role="group" aria-label="Trả lời">
+            <button id="btnNo" class="btn btn-no" aria-pressed="false">không</button>
+            <button id="btnYes" class="btn btn-yes" aria-pressed="false">có</button>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;color:#7d5a78;font-size:13px">
+          (Tớ chỉ muốn thấy nụ cười của cậu thôi nè 💕)
         </div>
       </div>
-      <div style="margin-top:18px;color:#7d5a78;font-size:13px">(Tớ chỉ muốn thấy nụ cười của cậu thôi 💕)</div>
+
+      <div class="right" aria-hidden="true">
+        <div class="heart">💘</div>
+        <div style="text-align:center;padding:18px;z-index:10;position:relative">
+          <div style="font-size:16px;color:#6b4a63;font-weight:700">Preview</div>
+          <div style="margin-top:8px;color:#8b4e6e">Hoa + Tim + Âm nhạc</div>
+          <div style="margin-top:14px;font-size:13px;color:#7d5a78">Dùng được trên GitHub Pages</div>
+        </div>
+        <!-- Layer cho icon nổi -->
+        <div id="bgIcons"></div>
+      </div>
     </div>
-    <div class="right"></div>
   </div>
-</div>
 
-<div id="loadingScreen" class="loading-screen">
-  <div class="loading-card">
-    <div class="loading-title" id="loadingMsg">đang chuẩn bị lời chúc...</div>
-    <div style="height:10px"></div>
-    <div class="progress-outer">
-      <div class="progress-inner" id="progressBar"></div>
+  <div id="loadingScreen" class="loading-screen" role="status" aria-hidden="true">
+    <div class="loading-card">
+      <div class="loading-title" id="loadingMsg">đang chuẩn bị lời chúc...</div>
+      <div style="height:10px"></div>
+      <div class="progress-outer" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-inner" id="progressBar"></div>
+      </div>
+      <div style="height:10px"></div>
+      <div style="font-size:13px;color:#7c5876;margin-top:10px">Đợi xíu nha, tớ đang bọc hoa ảo cho cậu 🎁</div>
     </div>
-    <div style="height:10px"></div>
-    <div style="font-size:13px;color:#7c5876;margin-top:10px">Đợi xíu nha, tớ đang bọc hoa ảo cho cậu 🎁</div>
   </div>
-</div>
 
-<div id="messageScreen" class="message-screen">
-  <div class="message-inner">
-    <div class="decor-top">🌸 💖 🌷 ✨ 🎀 💗 🌟 🌹 🌼 💝</div>
-    <div class="msg-title">Chúc mừng 20/10!</div>
-    <div class="msg-sub">Gửi đến cô gái đặc biệt 💕</div>
-    <div class="wish-lines">Một chút ngọt, một chút hoa và cả bầu trời yêu thương ✨</div>
-    <div class="wish-lines">Chúc bạn luôn xinh đẹp, rạng rỡ và hạnh phúc 🌸</div>
-    <div class="decor-bottom">🌸 💖 🌷 ✨ 🎀 💗 🌟 🌹 🌼 💝</div>
+  <div id="messageScreen" class="message-screen" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="message-inner" id="messageInner">
+      <div style="font-size:44px">🌸</div>
+      <div class="msg-title">Chúc mừng 20/10!</div>
+      <div class="msg-sub">Gửi đến cô gái đặc biệt — người khiến ngày thường cũng rạng rỡ</div>
+      <div class="wish-lines" id="wishLines">
+        <div>💐 Chúc cậu luôn xinh tươi như hoa,</div>
+        <div>✨ mỗi ngày đều ngập tràn nụ cười và niềm vui,</div>
+        <div>🌟 mọi dự định học hành, công việc đều thuận lợi,</div>
+        <div>💖 và luôn gặp may mắn trong chuyện tình cảm nữa nhé!</div>
+      </div>
+      <div style="font-size:13px;color:#7c5876">— Gửi từ một người bạn muốn bạn cười thật nhiều hôm nay 🌷</div>
+    </div>
   </div>
-</div>
 
-<div class="particles" id="particles"></div>
+  <div id="particles" class="particles" aria-hidden="true"></div>
 
-<audio id="bgMusic" loop autoplay>
-  <source src="https://files.catbox.moe/tqi6f7.mov" type="audio/mp3">
-</audio>
+  <audio id="bgAudio" loop preload="auto">
+    <source src="https://files.catbox.moe/tqi6f7.mov" />
+  </audio>
 
 <script>
-const btnNo = document.getElementById('btnNo');
-const btnYes = document.getElementById('btnYes');
-const loadingScreen = document.getElementById('loadingScreen');
-const progressBar = document.getElementById('progressBar');
-const messageScreen = document.getElementById('messageScreen');
-const particlesContainer = document.getElementById('particles');
+  // === ICONS NỔI TRONG RIGHT ===
+  const bgIcons = document.getElementById('bgIcons');
+  const icons = ['💖','💕','🌸','🌷','🎀','✨','💘','💝','🎉','🔆'];
 
-btnNo.addEventListener('click',()=>{
-  btnNo.style.transform = "scale(0.8)";
-  btnYes.style.transform = "scale(2)";
-});
+  function spawnBgIcon(){
+    const el = document.createElement('div');
+    el.textContent = icons[Math.floor(Math.random()*icons.length)];
+    const size = 14 + Math.random()*18; // 14-32px
+    el.style.fontSize = size + 'px';
+    el.style.position = 'absolute';
+    el.style.top = (Math.random()*80) + '%';
+    el.style.left = (Math.random()*80) + '%';
+    el.style.opacity = 0;
+    el.style.transform = `scale(0.5)`;
+    el.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
+    bgIcons.appendChild(el);
 
-btnYes.addEventListener('click',startLoading);
+    requestAnimationFrame(() => {
+      el.style.opacity = 0.15 + Math.random()*0.15;
+      el.style.transform = `scale(${0.8 + Math.random()*0.4})`;
+    });
 
-function startLoading(){
-  document.querySelector('.wrap').style.display="none";
-  loadingScreen.style.display="flex";
-  let progress = 0;
-  const interval = setInterval(()=>{
-    progress+=1;
-    progressBar.style.width=progress+"%";
-    if(progress>=100){
-      clearInterval(interval);
-      loadingScreen.style.display="none";
-      showMessage();
-    }
-  },40);
-}
-
-function showMessage(){
-  messageScreen.style.display="flex";
-  for(let i=0;i<40;i++){
-    const p = document.createElement('span');
-    const icons=['💖','🌸','🌷','✨','🎀','💗','🌟','🌹','🌼','💝'];
-    p.textContent=icons[Math.floor(Math.random()*icons.length)];
-    p.style.left=Math.random()*100+"vw";
-    p.style.top=-10+"px";
-    p.style.fontSize=Math.random()*20+15+"px";
-    p.style.position="absolute";
-    p.style.animation="fall "+(Math.random()*5+5)+"s linear forwards";
-    particlesContainer.appendChild(p);
+    setTimeout(()=>{
+      el.style.opacity = 0;
+      el.style.transform = `scale(0.3)`;
+      setTimeout(()=> { if(el && el.parentNode) el.parentNode.removeChild(el); }, 1200);
+    }, 2000 + Math.random()*1000);
   }
-}
 
-// audio autoplay fix
-const music = document.getElementById('bgMusic');
-music.volume=0.7;
-document.addEventListener('click',()=>music.play(),{once:true});
+  setInterval(spawnBgIcon, 220);
+
+  // === PHẦN CODE GỐC CÒN LẠI (YES/NO, LOADING, MESSAGE, PARTICLES, AUDIO) ===
+  const btnNo = document.getElementById('btnNo');
+  const btnYes = document.getElementById('btnYes');
+  const loadingScreen = document.getElementById('loadingScreen');
+  const progressBar = document.getElementById('progressBar');
+  const loadingMsg = document.getElementById('loadingMsg');
+  const messageScreen = document.getElementById('messageScreen');
+  const messageInner = document.getElementById('messageInner');
+  const particles = document.getElementById('particles');
+  const bgAudio = document.getElementById('bgAudio');
+
+  let yesScale = 1;
+  const maxScale = 6;
+  const doubleOnNo = true;
+  let noCount = 0;
+
+  async function tryAutoPlay() {
+    try {
+      bgAudio.volume = 0.72;
+      await bgAudio.play();
+    } catch(e) {}
+  }
+  tryAutoPlay();
+
+  btnNo.addEventListener('click', function(){
+    noCount++;
+    btnNo.style.transform = 'scale(0.6)';
+    btnNo.style.transition = 'transform 180ms ease';
+    setTimeout(()=> {
+      const baseShrink = Math.max(0.18, 1 - 0.12*noCount);
+      btnNo.style.transform = `scale(${baseShrink})`;
+    }, 200);
+
+    if (doubleOnNo) {
+      yesScale = Math.min(maxScale, yesScale * 2);
+    } else {
+      yesScale = Math.min(maxScale, yesScale + 0.4);
+    }
+    btnYes.style.transform = `scale(${yesScale})`;
+    btnYes.style.transition = 'transform 260ms cubic-bezier(.2,.9,.3,1)';
+    btnYes.style.boxShadow = '0 18px 48px rgba(255,80,150,0.18)';
+
+    btnNo.animate([
+      { transform: 'translateX(0px) rotate(0deg)' },
+      { transform: 'translateX(-6px) rotate(-6deg)' },
+      { transform: 'translateX(0px) rotate(0deg)' }
+    ], {duration: 380, easing: 'ease-out'});
+  });
+
+  btnYes.addEventListener('click', async function(){
+    try{ await bgAudio.play(); } catch(e){}
+    startLoadingSequence();
+  });
+
+  [btnNo, btnYes].forEach(btn => {
+    btn.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') btn.click();
+    });
+  });
+
+  function startLoadingSequence(){
+    document.querySelector('.wrap').style.filter = 'brightness(.85)';
+    loadingScreen.style.display = 'flex';
+    loadingScreen.setAttribute('aria-hidden','false');
+    const msgs = [
+      'đang gói quà xinh xắn...',
+      'đang thả tim nhỏ nhỏ...',
+      'đang bọc hoa ảo...',
+      'đang soạn lời chúc dễ thương...',
+      'sắp xong rồi nè...'
+    ];
+    let idx = 0;
+    const msgTimer = setInterval(()=> {
+      loadingMsg.textContent = msgs[idx % msgs.length];
+      idx++;
+    }, 700);
+    const total = 3600 + Math.random()*900;
+    const start = performance.now();
+    function tick(now){
+      const elapsed = now - start;
+      const pct = Math.min(100, (elapsed/total)*100);
+      progressBar.style.width = pct + '%';
+      progressBar.parentElement.setAttribute('aria-valuenow', Math.round(pct));
+      if (pct < 100) requestAnimationFrame(tick);
+      else {
+        clearInterval(msgTimer);
+        setTimeout(()=> { loadingScreen.style.display = 'none'; darkThenReveal(); }, 500);
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function darkThenReveal(){
+    const wrap = document.querySelector('.wrap');
+    wrap.animate([{ filter: 'brightness(0.9)' }, { filter: 'brightness(0.25)' }], { duration: 420, fill: 'forwards', easing: 'ease-out' });
+    setTimeout(()=> {
+      messageScreen.style.display = 'flex';
+      messageScreen.setAttribute('aria-hidden','false');
+      messageInner.animate([{ transform: 'scale(.96)', opacity: 0 }, { transform: 'scale(1.02)', opacity: 1 }], { duration: 700, easing: 'cubic-bezier(.2,.9,.3,1)' });
+      spawnParticlesBurst();
+      const bursts = [500, 1100, 1700, 2300];
+      bursts.forEach((t)=> setTimeout(spawnParticlesBurst, t));
+      setTimeout(()=> wrap.style.filter = '', 1400);
+    }, 420);
+  }
+
+  function spawnParticlesBurst(){
+    const emojis = ['💖','💕','🌸','🌷','🎀','✨','💘','💝','🎉','🔆'];
+    const count = 28;
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    for (let i=0;i<count;i++){
+      const el = document.createElement('div');
+      el.style.position = 'absolute';
+      el.style.willChange = 'transform,opacity';
+      el.style.pointerEvents = 'none';
+      el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      const size = (Math.random()*22 + 14) + 'px';
+      el.style.fontSize = size;
+      const left = Math.random()*100;
+      el.style.left = left + 'vw';
+      const delay = Math.random()*200;
+      const dur = 2000 + Math.random()*2200;
+      el.style.opacity = 0;
+      particles.appendChild(el);
+
+      setTimeout(()=> {
+        const start = performance.now();
+        function frame(now){
+          const t = (now - start)/dur;
+          if (t < 1){
+            const y = (-10 + t*(120)) + 'vh';
+            el.style.transform = `translateY(${y}) rotate(${t*720}deg) scale(${1 - t*0.45})`;
+            el.style.opacity = String(Math.min(1, t*1.4));
+            requestAnimationFrame(frame);
+          } else {
+            el.style.opacity = '0';
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+          }
+        }
+        requestAnimationFrame(frame);
+      }, delay);
+    }
+  }
+
+  ['click','touchstart','keydown'].forEach(ev => {
+    document.addEventListener(ev, function resume(){ 
+      if (bgAudio.paused) bgAudio.play().catch(()=>{});
+      document.removeEventListener(ev, resume);
+    }, {passive:true});
+  });
+
+  messageScreen.addEventListener('click', function(){
+    messageInner.animate([{ transform: 'scale(1)' }, { transform: 'scale(0.995)' }, { transform: 'scale(1)' }], { duration: 260, easing: 'ease-out' });
+  });
+
+  const resizeObserver = new ResizeObserver(() => {
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    if (yesScale > 1 && vw < 420 && yesScale > 3) {
+      yesScale = Math.max(1.6, yesScale/1.6);
+      btnYes.style.transform = `scale(${yesScale})`;
+    }
+  });
+  resizeObserver.observe(document.documentElement);
+
+  setTimeout(()=> {
+    btnYes.animate([{ transform: 'translateY(0px) scale(1)' }, { transform: 'translateY(-6px) scale(1.02)' }, { transform: 'translateY(0px) scale(1)' }], { duration: 900, iterations: Infinity, easing: 'ease-in-out' });
+  }, 600);
 </script>
-
 </body>
 </html>

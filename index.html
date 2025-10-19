@@ -42,10 +42,10 @@
   /* Main stage */
   .stage{display:flex;gap:26px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:12px}
   .left{flex:1 1 420px;min-width:260px}
-  .right{width:360px;min-width:240px;height:420px;border-radius:16px;background:linear-gradient(180deg,#fffafc,#fff0f7);display:flex;align-items:center;justify-content:center;position:relative;box-shadow: 0 18px 50px rgba(160,60,120,0.08);overflow:hidden}
+  .right{width:360px;min-width:240px;height:420px;border-radius:16px;background:linear-gradient(180deg,#fffafc,#fff0f7);display:flex;align-items:center;justify-content:center;position:relative;box-shadow: 0 18px 50px rgba(160,60,120,0.08)}
   .right .heart{position:absolute;top:18px;right:18px;font-size:28px}
 
-  /* Main question area */
+  /* Question center */
   .question-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.82));box-shadow: 0 12px 30px rgba(120,40,80,0.06)}
   .question-text{font-size:22px;color:#5a3750;font-weight:800;margin-bottom:18px;text-align:center}
   .buttons{display:flex;gap:18px;align-items:center}
@@ -75,9 +75,6 @@
   /* particles layer */
   .particles{position:fixed;inset:0;pointer-events:none;z-index:1400;overflow:hidden}
 
-  /* Floating icons in right panel */
-  #bgIcons{position:absolute;inset:0;pointer-events:none;z-index:20}
-
   /* small responsive */
   @media (max-width:760px){
     .stage{flex-direction:column-reverse;align-items:center}
@@ -91,13 +88,14 @@
     <div class="heading">
       <div class="logo">20</div>
       <div>
-        <h1>Chúc mừng 20/10 — Ngày của những nàng xinh 💐</h1>
+        <h1>Chúc mừng 20/10 — Ngày Phụ Nữ Việt Nam Nè 🇻🇳💐</h1>
         <p class="sub">Một món quà ảo nhỏ nè — nhấn trả lời nhé!</p>
       </div>
     </div>
 
     <div class="stage">
       <div class="left">
+        <!-- New main question area (replace previous text as requested) -->
         <div class="question-wrap" aria-labelledby="qtext">
           <div id="qtext" class="question-text">Bạn trước màn hình có xinh không nè 🫣?</div>
           <div class="buttons" role="group" aria-label="Trả lời">
@@ -107,89 +105,62 @@
         </div>
 
         <div style="margin-top:18px;color:#7d5a78;font-size:13px">
-          (Tớ chỉ muốn thấy nụ cười của cậu thôi nè 💕)
+          ( Nhìn Đây Chi Trả Lời Đê =)) )
         </div>
       </div>
 
       <div class="right" aria-hidden="true">
         <div class="heart">💘</div>
-        <div style="text-align:center;padding:18px;z-index:10;position:relative">
+        <div style="text-align:center;padding:18px">
           <div style="font-size:16px;color:#6b4a63;font-weight:700">Preview</div>
           <div style="margin-top:8px;color:#8b4e6e">Hoa + Tim + Âm nhạc</div>
           <div style="margin-top:14px;font-size:13px;color:#7d5a78">Dùng được trên GitHub Pages</div>
         </div>
-        <!-- Layer cho icon nổi -->
-        <div id="bgIcons"></div>
       </div>
     </div>
   </div>
 
+  <!-- loading screen -->
   <div id="loadingScreen" class="loading-screen" role="status" aria-hidden="true">
     <div class="loading-card">
-      <div class="loading-title" id="loadingMsg">đang chuẩn bị lời chúc...</div>
+      <div class="loading-title" id="loadingMsg">đang Hack Dữ Liệu Điện Thoại =)) Loading...</div>
       <div style="height:10px"></div>
       <div class="progress-outer" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="progress-inner" id="progressBar"></div>
       </div>
       <div style="height:10px"></div>
-      <div style="font-size:13px;color:#7c5876;margin-top:10px">Đợi xíu nha, tớ đang bọc hoa ảo cho cậu 🎁</div>
+      <div style="font-size:13px;color:#7c5876;margin-top:10px">Đợi xíu nha, tớ đang bọc quà cho cậu 🎁</div>
     </div>
   </div>
 
+  <!-- message screen (final) -->
   <div id="messageScreen" class="message-screen" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="message-inner" id="messageInner">
       <div style="font-size:44px">🌸</div>
       <div class="msg-title">Chúc mừng 20/10!</div>
-      <div class="msg-sub">Gửi đến cô gái đặc biệt — người khiến ngày thường cũng rạng rỡ</div>
+      <div class="msg-sub">Gửi đến cô gái đặc biệt — người khiến ngày thường cũng rạng rỡ , mà cỡ mặt trời cũng phải bỡ ngỡ vì Cậu🤓</div>
+
       <div class="wish-lines" id="wishLines">
         <div>💐 Chúc cậu luôn xinh tươi như hoa,</div>
         <div>✨ mỗi ngày đều ngập tràn nụ cười và niềm vui,</div>
         <div>🌟 mọi dự định học hành, công việc đều thuận lợi,</div>
         <div>💖 và luôn gặp may mắn trong chuyện tình cảm nữa nhé!</div>
       </div>
-      <div style="font-size:13px;color:#7c5876">— Gửi từ một người bạn muốn bạn cười thật nhiều hôm nay 🌷</div>
+
+      <div style="font-size:13px;color:#7c5876">— Gửi từ Bạn Hanh Nhìn Tật =))🌷</div>
     </div>
   </div>
 
+  <!-- particles (tim + confetti) -->
   <div id="particles" class="particles" aria-hidden="true"></div>
 
+  <!-- background audio (Catbox) -->
   <audio id="bgAudio" loop preload="auto">
     <source src="https://files.catbox.moe/tqi6f7.mov" />
   </audio>
 
 <script>
-  // === ICONS NỔI TRONG RIGHT ===
-  const bgIcons = document.getElementById('bgIcons');
-  const icons = ['💖','💕','🌸','🌷','🎀','✨','💘','💝','🎉','🔆'];
-
-  function spawnBgIcon(){
-    const el = document.createElement('div');
-    el.textContent = icons[Math.floor(Math.random()*icons.length)];
-    const size = 14 + Math.random()*18; // 14-32px
-    el.style.fontSize = size + 'px';
-    el.style.position = 'absolute';
-    el.style.top = (Math.random()*80) + '%';
-    el.style.left = (Math.random()*80) + '%';
-    el.style.opacity = 0;
-    el.style.transform = `scale(0.5)`;
-    el.style.transition = 'opacity 1.2s ease, transform 1.2s ease';
-    bgIcons.appendChild(el);
-
-    requestAnimationFrame(() => {
-      el.style.opacity = 0.15 + Math.random()*0.15;
-      el.style.transform = `scale(${0.8 + Math.random()*0.4})`;
-    });
-
-    setTimeout(()=>{
-      el.style.opacity = 0;
-      el.style.transform = `scale(0.3)`;
-      setTimeout(()=> { if(el && el.parentNode) el.parentNode.removeChild(el); }, 1200);
-    }, 2000 + Math.random()*1000);
-  }
-
-  setInterval(spawnBgIcon, 220);
-
-  // === PHẦN CODE GỐC CÒN LẠI (YES/NO, LOADING, MESSAGE, PARTICLES, AUDIO) ===
+  // Elements
   const btnNo = document.getElementById('btnNo');
   const btnYes = document.getElementById('btnYes');
   const loadingScreen = document.getElementById('loadingScreen');
@@ -200,32 +171,500 @@
   const particles = document.getElementById('particles');
   const bgAudio = document.getElementById('bgAudio');
 
+  // state for scaling yes button
   let yesScale = 1;
-  const maxScale = 6;
-  const doubleOnNo = true;
+  const maxScale = 6; // cap to avoid overflow on small screens
+  const doubleOnNo = true; // user wanted "gấp đôi"
+  // track number of "no" presses
   let noCount = 0;
 
+  // Try autoplay once
   async function tryAutoPlay() {
     try {
       bgAudio.volume = 0.72;
       await bgAudio.play();
-    } catch(e) {}
+      console.log('Audio autoplay success');
+    } catch(e) {
+      console.log('Autoplay blocked - will play on user gesture', e);
+    }
   }
   tryAutoPlay();
 
+  // animate shrink for "no" and grow for "yes"
   btnNo.addEventListener('click', function(){
     noCount++;
+    // shrink "no" slightly each click (min 0.4)
     btnNo.style.transform = 'scale(0.6)';
     btnNo.style.transition = 'transform 180ms ease';
     setTimeout(()=> {
+      // reduce a bit more for repeated clicks
       const baseShrink = Math.max(0.18, 1 - 0.12*noCount);
       btnNo.style.transform = `scale(${baseShrink})`;
     }, 200);
 
+    // grow "yes" (double if requested)
     if (doubleOnNo) {
       yesScale = Math.min(maxScale, yesScale * 2);
     } else {
       yesScale = Math.min(maxScale, yesScale + 0.4);
+    }
+    // animate growth
+    btnYes.style.transform = `scale(${yesScale})`;
+    btnYes.style.transition = 'transform 260ms cubic-bezier(.2,.9,.3,1)';
+    // subtle pulse and shadow
+    btnYes.style.boxShadow = '0 18px 48px rgba(255,80,150,0.18)';
+
+    // small playful wiggle on no to keep it cute
+    btnNo.animate([
+      { transform: 'translateX(0px) rotate(0deg)' },
+      { transform: 'translateX(-6px) rotate(-6deg)' },
+      { transform: 'translateX(0px) rotate(0deg)' }
+    ], {duration: 380, easing: 'ease-out'});
+  });
+
+  // If user clicks 'yes' -> go to loading sequence
+  btnYes.addEventListener('click', async function(){
+    // ensure audio plays
+    try{ await bgAudio.play(); } catch(e){ console.log('play blocked', e) }
+    startLoadingSequence();
+  });
+
+  // Allow keyboard activation (accessibility)
+  [btnNo, btnYes].forEach(btn => {
+    btn.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') btn.click();
+    });
+  });
+
+  // Loading logic
+  function startLoadingSequence(){
+    // hide main interactive area (slightly dim)
+    document.querySelector('.wrap').style.filter = 'brightness(.85)';
+    loadingScreen.style.display = 'flex';
+    loadingScreen.setAttribute('aria-hidden','false');
+
+    // cycle messages
+    const msgs = [
+      'đang gói quà xinh xắn...',
+      'đang thả tim nhỏ nhỏ...',
+      'đang bọc hoa ảo...',
+      'đang soạn lời chúc dễ thương...',
+      'sắp xong rồi nè...'
+    ];
+    let idx = 0;
+    const msgTimer = setInterval(()=> {
+      loadingMsg.textContent = msgs[idx % msgs.length];
+      idx++;
+    }, 700);
+
+    // fill progress to 100% smoothly
+    const total = 3600 + Math.random()*900; // ~3.6s-4.5s
+    const start = performance.now();
+    function tick(now){
+      const elapsed = now - start;
+      const pct = Math.min(100, (elapsed/total)*100);
+      progressBar.style.width = pct + '%';
+      progressBar.parentElement.setAttribute('aria-valuenow', Math.round(pct));
+      if (pct < 100) {
+        requestAnimationFrame(tick);
+      } else {
+        clearInterval(msgTimer);
+        setTimeout(()=> {
+          // fade to dark then show message
+          loadingScreen.style.display = 'none';
+          darkThenReveal();
+        }, 500);
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // darken then reveal message + spawn particles
+  function darkThenReveal(){
+    // darken whole page then reveal
+    const wrap = document.querySelector('.wrap');
+    wrap.animate([
+      { filter: 'brightness(0.9)' },
+      { filter: 'brightness(0.25)' }
+    ], { duration: 420, fill: 'forwards', easing: 'ease-out' });
+
+    // small delay then reveal message
+    setTimeout(()=> {
+      // show message screen
+      messageScreen.style.display = 'flex';
+      messageScreen.setAttribute('aria-hidden','false');
+      // quick brighten transition of message inner
+      messageInner.animate([
+        { transform: 'scale(.96)', opacity: 0 },
+        { transform: 'scale(1.02)', opacity: 1 }
+      ], { duration: 700, easing: 'cubic-bezier(.2,.9,.3,1)' });
+
+      // spawn particles (tim + confetti) repeatedly for a bit
+      spawnParticlesBurst();
+      const bursts = [500, 1100, 1700, 2300];
+      bursts.forEach((t, i) => setTimeout(spawnParticlesBurst, t));
+      // restore wrap brightness softly
+      setTimeout(()=> wrap.style.filter = '', 1400);
+    }, 420);
+  }
+
+  // create particle burst of hearts + confetti
+  function spawnParticlesBurst(){
+    const emojis = ['💖','💕','🌸','🌷','🎀','✨','💘','💝'];
+    const count = 28;
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    for (let i=0;i<count;i++){
+      const el = document.createElement('div');
+      el.style.position = 'absolute';
+      el.style.willChange = 'transform,opacity';
+      el.style.pointerEvents = 'none';
+      el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      const size = (Math.random()*22 + 14) + 'px';
+      el.style.fontSize = size;
+      const left = Math.random()*100;
+      el.style.left = left + 'vw';
+      const delay = Math.random()*200;
+      const dur = 2000 + Math.random()*2200;
+      el.style.opacity = 0;
+      particles.appendChild(el);
+
+      // animate using setTimeout + requestAnimationFrame for better control
+      setTimeout(()=> {
+        const start = performance.now();
+        function frame(now){
+          const t = (now - start)/dur;
+          if (t < 1){
+            // vertical movement from -10vh to 110vh
+            const y = (-10 + t*(120)) + 'vh';
+            el.style.transform = `translateY(${y}) rotate(${t*720}deg) scale(${1 - t*0.45})`;
+            el.style.opacity = String(Math.min(1, t*1.4));
+            requestAnimationFrame(frame);
+          } else {
+            el.style.opacity = '0';
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+          }
+        }
+        requestAnimationFrame(frame);
+      }, delay);
+    }
+  }
+
+  // Try to resume audio on any user gesture too
+  ['click','touchstart','keydown'].forEach(ev => {
+    document.addEventListener(ev, function resume(){ 
+      if (bgAudio.paused) bgAudio.play().catch(()=>{});
+      document.removeEventListener(ev, resume);
+    }, {passive:true});
+  });
+
+  // close message on click (optional)
+  messageScreen.addEventListener('click', function(){
+    // keep message visible by default per your request; here click will not close
+    // but we'll add a subtle ripple to indicate interaction
+    messageInner.animate([
+      { transform: 'scale(1)' },
+      { transform: 'scale(0.995)' },
+      { transform: 'scale(1)' }
+    ], { duration: 260, easing: 'ease-out' });
+  });
+
+  // Accessibility: Enter key to click yes if focused
+  btnYes.addEventListener('keyup', (e) => { if (e.key === 'Enter') btnYes.click(); });
+  btnNo.addEventListener('keyup', (e) => { if (e.key === 'Enter') btnNo.click(); });
+
+  // Helpful: ensure the "yes" button doesn't overflow the screen (responsive)
+  // If scale becomes too large we can bring it back a bit for UX
+  const resizeObserver = new ResizeObserver(() => {
+    // keep yesScale reasonable relative to viewport width
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    if (yesScale > 1 && vw < 420 && yesScale > 3) {
+      yesScale = Math.max(1.6, yesScale/1.6);
+      btnYes.style.transform = `scale(${yesScale})`;
+    }
+  });
+  resizeObserver.observe(document.documentElement);
+
+  // make initial micro animation to entice click
+  setTimeout(()=> {
+    btnYes.animate([
+      { transform: 'translateY(0px) scale(1)' },
+      { transform: 'translateY(-6px) scale(1.02)' },
+      { transform: 'translateY(0px) scale(1)' }
+    ], { duration: 900, iterations: Infinity, easing: 'ease-in-out' });
+  }, 600);
+</script>
+<!-- === BẮT ĐẦU: thêm vào cuối index.html (TRƯỚC </body>) === -->
+<style>
+  /* styles bổ sung, an toàn để append */
+  #__upgrade_seq_overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.95);
+    color: #fff;
+    text-align: center;
+    padding: 18px;
+    flex-direction: column;
+    gap: 16px;
+  }
+  #__upgrade_seq_text { font-size: 20px; line-height:1.4; max-width:88vw; }
+  #__upgrade_seq_gif { max-width: 86vw; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.6); display:block; }
+  #__upgrade_loader {
+    position: fixed;
+    inset: 0;
+    display:none;
+    z-index: 99998;
+    align-items:center;
+    justify-content:center;
+    background: rgba(0,0,0,0.88);
+    color:#fff;
+    flex-direction:column;
+    gap:12px;
+  }
+  #__upgrade_loader_bar {
+    width: 64vw; max-width:520px; height:12px; background: rgba(255,255,255,0.12);
+    border-radius: 999px; overflow:hidden;
+  }
+  #__upgrade_loader_bar_inner { height:100%; width:0%; background: linear-gradient(90deg, rgba(255,255,255,0.18), rgba(255,255,255,0.32)); transition: width 420ms linear; }
+  #__upgrade_final_msg {
+    position: fixed;
+    inset: 0;
+    display:none;
+    z-index: 99997;
+    align-items:center;
+    justify-content:center;
+    background: rgba(255,255,255,0.02);
+    color: #fff;
+    padding: 20px;
+    text-align:center;
+  }
+  #__upgrade_final_msg .card { background: rgba(0,0,0,0.6); padding:20px; border-radius:12px; box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
+</style>
+
+<div id="__upgrade_seq_overlay" aria-hidden="true">
+  <div id="__upgrade_seq_text" aria-live="polite"></div>
+  <div id="__upgrade_seq_gif_wrap" style="display:none;">
+    <img id="__upgrade_seq_gif" alt="gif" />
+  </div>
+</div>
+
+<div id="__upgrade_loader" aria-hidden="true">
+  <div style="font-weight:600">Đang chuẩn bị...</div>
+  <div id="__upgrade_loader_bar"><div id="__upgrade_loader_bar_inner"></div></div>
+  <div id="__upgrade_loader_msg" style="opacity:.9;font-size:14px;padding-top:6px">Vui lòng chờ...</div>
+</div>
+
+<div id="__upgrade_final_msg" aria-hidden="true">
+  <div class="card">
+    <div style="font-size:20px;font-weight:700">Lời chúc</div>
+    <div style="margin-top:10px" id="__upgrade_final_text">Cảm ơn bạn — chúc bạn một ngày thật tuyệt!</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // === Cấu hình (không đổi code gốc) ===
+  const MP3_URL = 'https://files.catbox.moe/39azma.mp3';
+  const MP4_URL = 'https://files.catbox.moe/t0cprg.mp4';
+  const GIF_URL = 'https://media.giphy.com/media/lxxOGaDRk4f7R5TkBd/giphy.gif';
+  const MIN_MP3_MS = 4000; // tối thiểu 4s
+  const MIN_MP4_MS = 8000; // tối thiểu 8s
+
+  // === phần tử bổ sung ===
+  const overlay = document.getElementById('__upgrade_seq_overlay');
+  const overlayText = document.getElementById('__upgrade_seq_text');
+  const gifWrap = document.getElementById('__upgrade_seq_gif_wrap');
+  const gifImg = document.getElementById('__upgrade_seq_gif');
+  const loader = document.getElementById('__upgrade_loader');
+  const loaderInner = document.getElementById('__upgrade_loader_bar_inner');
+  const loaderMsg = document.getElementById('__upgrade_loader_msg');
+  const finalMsg = document.getElementById('__upgrade_final_msg');
+  const finalText = document.getElementById('__upgrade_final_text');
+
+  // find background audio element (try common ids or first <audio>)
+  function findBgAudio(){
+    const byId = ['bgAudio','audio','backgroundAudio','bg-audio'];
+    for (const id of byId){
+      const el = document.getElementById(id);
+      if (el && el.tagName && el.tagName.toLowerCase()==='audio') return el;
+    }
+    const firstAudio = document.querySelector('audio');
+    if (firstAudio) return firstAudio;
+    // fallback: no audio found
+    return null;
+  }
+
+  const bgAudio = findBgAudio();
+
+  // robust find of "có" button: prefer id btnYes, else find elements with innerText 'có'
+  function findYesButton(){
+    const pref = document.getElementById('btnYes') || document.querySelector('[data-yes]');
+    if (pref) return pref;
+    const buttons = Array.from(document.querySelectorAll('button, a, input[type="button"], [role="button"]'));
+    for (const b of buttons){
+      try{
+        if ((b.innerText || b.value || '').trim().toLowerCase() === 'có') return b;
+      }catch(e){}
+    }
+    // last resort - first clickable element
+    return buttons[0] || null;
+  }
+
+  const yesBtn = findYesButton();
+  if (!yesBtn){
+    // nothing to attach to; do nothing further (but keep original code untouched)
+    return;
+  }
+
+  // avoid double attachment
+  if (yesBtn.dataset.__upgradeAttached) return;
+  yesBtn.dataset.__upgradeAttached = '1';
+
+  // promise helper to play audio and resolve on end or after min timeout
+  function playAudioOnceTimed(src, minMs){
+    return new Promise((resolve) => {
+      const a = new Audio(src);
+      a.preload = 'auto';
+      let settled = false;
+      function cleanup(){
+        if (settled) return;
+        settled = true;
+        try{ a.pause(); }catch(e){}
+        resolve();
+      }
+      a.addEventListener('ended', () => cleanup());
+      a.addEventListener('error', () => cleanup());
+      // safety by minMs anyway
+      const t = setTimeout(() => cleanup(), minMs + 600);
+      a.play().catch(()=>{ /* autoplay might block; still wait minMs then resolve */ });
+    });
+  }
+
+  // helper to play audio and return when ended or after timeout (ms)
+  function playMediaWait(src, timeoutMs){
+    return new Promise((resolve) => {
+      let done = false;
+      const a = new Audio(src);
+      a.preload = 'auto';
+      a.loop = false;
+      a.addEventListener('ended', ()=>{ if (!done){ done=true; resolve(); } });
+      a.addEventListener('error', ()=>{ if (!done){ done=true; resolve(); } });
+      a.play().catch(()=>{ /* play may be blocked; still fallback to timeout */ });
+      setTimeout(()=>{ if (!done){ done=true; resolve(); } }, timeoutMs + 500);
+    });
+  }
+
+  // fade helpers (do not remove any existing elements)
+  function fadeInOverlay(){
+    overlay.style.display = 'flex';
+    overlay.style.opacity = '0';
+    const anim = overlay.animate([{opacity:0},{opacity:1}], {duration:420, fill:'forwards', easing:'ease-out'});
+    return new Promise(res=> anim.onfinish = res);
+  }
+  function fadeOutOverlay(){
+    const anim = overlay.animate([{opacity:1},{opacity:0}], {duration:380, fill:'forwards', easing:'ease-out'});
+    return new Promise(res=> anim.onfinish = ()=>{ overlay.style.display='none'; res(); });
+  }
+
+  function fadeToBlackOnRoot(duration=420){
+    // attempt to dim main content but not touch original code
+    const root = document.querySelector('body') || document.documentElement;
+    const anim = root.animate([{filter: 'brightness(1)'},{filter:'brightness(0.06)'}], {duration, fill:'forwards', easing:'ease-out'});
+    return new Promise(res=> anim.onfinish = res);
+  }
+  function restoreBrightness(duration=360){
+    const root = document.querySelector('body') || document.documentElement;
+    const anim = root.animate([{filter:'brightness(0.06)'},{filter:''}], {duration, fill:'forwards', easing:'ease-out'});
+    return new Promise(res=> anim.onfinish = res);
+  }
+
+  // loader simulation
+  function showLoaderThenReveal(finalTextStr){
+    loader.style.display = 'flex';
+    loader.setAttribute('aria-hidden','false');
+    loaderInner.style.width = '2%';
+    loaderMsg.innerText = 'Đang chuẩn bị...';
+    let start = performance.now();
+    const duration = 3600 + Math.random()*900; // ~3.6s - 4.5s
+    return new Promise(res=>{
+      function frame(now){
+        const pct = Math.min(100, ((now - start)/duration)*100);
+        loaderInner.style.width = pct + '%';
+        if (pct < 100) requestAnimationFrame(frame);
+        else {
+          setTimeout(()=> {
+            loader.style.display = 'none';
+            loader.setAttribute('aria-hidden','true');
+            finalText.innerText = finalTextStr || 'Mong bạn thích!';
+            finalMsg.style.display = 'flex';
+            finalMsg.setAttribute('aria-hidden','false');
+            res();
+          }, 420);
+        }
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
+  // main orchestrator
+  async function runSequence(){
+    try{
+      // 1) fade to black and stop bg audio
+      await fadeToBlackOnRoot(480);
+      if (bgAudio && !bgAudio.paused){
+        try{ bgAudio.pause(); bgAudio.currentTime = 0; } catch(e){}
+      }
+
+      // 2) show sentence
+      overlayText.textContent = 'trái đất thì có mặt trời , còn anh thì có 1 đời bên em';
+      gifWrap.style.display = 'none';
+      await fadeInOverlay();
+
+      // 3) play mp3 but wait at least MIN_MP3_MS or until ended
+      await Promise.race([ playMediaWait(MP3_URL, MIN_MP3_MS), new Promise(r=>setTimeout(r, MIN_MP3_MS)) ]);
+
+      // 4) show gif
+      gifImg.src = GIF_URL;
+      gifWrap.style.display = 'block';
+      // small visual pause to allow gif to appear
+      await new Promise(r => setTimeout(r, 420));
+
+      // 5) play mp4 as audio and wait at least MIN_MP4_MS or until ended
+      await Promise.race([ playMediaWait(MP4_URL, MIN_MP4_MS), new Promise(r=>setTimeout(r, MIN_MP4_MS)) ]);
+
+      // 6) hide overlay and show loader
+      await fadeOutOverlay();
+      await restoreBrightness(260);
+
+      // 7) show loader, then re-enable bgAudio (if exists)
+      await showLoaderThenReveal('Lời chúc: Yêu bạn vô hạn ♥');
+      if (bgAudio){
+        try{ bgAudio.currentTime = 0; bgAudio.play().catch(()=>{}); }catch(e){}
+      }
+
+      // 8) done (final message visible). Keep final message until user closes (do not auto remove)
+    }catch(err){
+      // If anything fails, ensure we try to restore visual and audio
+      try{ overlay.style.display='none'; loader.style.display='none'; finalMsg.style.display='flex'; if(bgAudio){ bgAudio.play().catch(()=>{}); } }catch(e){}
+      console.error('upgrade sequence error', err);
+    }
+  }
+
+  // attach handler to yesBtn
+  yesBtn.addEventListener('click', function(e){
+    // do not prevent original handlers — we append behavior after a tiny delay so original code runs too
+    // run sequence asynchronously
+    setTimeout(()=>{ runSequence().catch(()=>{}); }, 40);
+  }, {passive:true});
+
+})();
+</script>
+<!-- === KẾT THÚC: đoạn bổ sung (append) === -->
+</body>
+</html>.min(maxScale, yesScale + 0.4);
     }
     btnYes.style.transform = `scale(${yesScale})`;
     btnYes.style.transition = 'transform 260ms cubic-bezier(.2,.9,.3,1)';

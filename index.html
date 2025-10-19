@@ -1,457 +1,426 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>20/10 Special</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Chúc mừng 20/10 🎀</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<style>
+  :root{
+    --bg1:#ffd7ea;
+    --bg2:#ffecf8;
+    --accent:#ff6b9a;
+    --accent-2:#ffb86b;
+    --glass: rgba(255,255,255,0.85);
+    --shadow: 0 20px 40px rgba(0,0,0,0.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family: "Inter", "Arial", sans-serif;
+    background: linear-gradient(135deg,var(--bg1),var(--bg2));
+    color:#222;
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            overflow: hidden;
-            height: 100vh;
-        }
+  .card{
+    width:100%;
+    max-width:980px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.98));
+    border-radius:22px;
+    padding:36px;
+    box-shadow: var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
+  header{
+    display:flex;
+    gap:16px;
+    align-items:center;
+  }
+  .logo{
+    width:72px;height:72px;border-radius:18px;
+    background: radial-gradient(circle at 20% 20%, #fff5f9, #ffdff0 20%, transparent 21%),
+                linear-gradient(135deg, #ff96b6, #ffec9a);
+    display:flex;align-items:center;justify-content:center;
+    font-size:34px; color:white; font-weight:700;
+    box-shadow: 0 6px 18px rgba(255, 102, 160, 0.18), inset 0 -6px 18px rgba(255,255,255,0.12);
+  }
+  h1{font-size:28px;color:var(--accent);letter-spacing:0.3px}
+  p.lead{color:#6b4764;margin-top:8px;font-weight:600}
 
-        .hack-button {
-            padding: 25px 60px;
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff, #c56cf0);
-            border: none;
-            border-radius: 60px;
-            color: white;
-            cursor: pointer;
-            animation: buttonGlow 2s infinite alternate;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
-            z-index: 100;
-        }
+  .stage{
+    display:flex;
+    gap:28px;
+    margin-top:20px;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+  }
 
-        .hack-button:hover {
-            transform: scale(1.08);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
+  .left{
+    flex:1 1 420px;
+    min-width:280px;
+  }
 
-        @keyframes buttonGlow {
-            from {
-                box-shadow: 0 0 30px rgba(255,107,107,0.6);
-            }
-            to {
-                box-shadow: 0 0 50px rgba(77,150,255,0.9),
-                           0 0 70px rgba(107,207,127,0.7);
-            }
-        }
+  .cta{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-top:18px;
+  }
 
-        .floating-icons {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
+  .start-btn{
+    background: linear-gradient(90deg,var(--accent), #ff8ec1);
+    border:none;
+    color:white;
+    padding:18px 26px;
+    font-size:18px;
+    font-weight:700;
+    border-radius:14px;
+    cursor:pointer;
+    box-shadow: 0 12px 30px rgba(255,105,160,0.18);
+    transform-origin:center;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .start-btn:active{ transform: scale(.98) }
+  .start-btn:hover{ transform: scale(1.03) }
 
-        .floating-icon {
-            position: absolute;
-            font-size: 30px;
-            animation: floatDown 15s linear infinite;
-            opacity: 0.7;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
+  .hint{
+    font-size:14px;color:#7d5a78;
+    background: rgba(255,255,255,0.6);
+    padding:10px 14px;border-radius:12px;
+  }
 
-        @keyframes floatDown {
-            0% {
-                transform: translateY(-100px) rotate(0deg) scale(0.5);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-                transform: translateY(0px) rotate(180deg) scale(1);
-            }
-            90% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg) scale(0.5);
-                opacity: 0;
-            }
-        }
+  .preview{
+    width:320px; height:420px; border-radius:18px;
+    background: linear-gradient(180deg,#fff0f6,#fff9f9);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow: 0 18px 50px rgba(170,60,120,0.12);
+    flex-shrink:0;
+    position:relative;
+    overflow:hidden;
+  }
 
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+  .card-heart{
+    position:absolute; top:18px; right:18px;
+    font-size:26px;
+    transform: rotate(10deg);
+    filter: drop-shadow(0 6px 12px rgba(255,120,160,0.18));
+  }
 
-        .loading-text {
-            font-size: 2.8rem;
-            font-weight: bold;
-            margin-bottom: 50px;
-            text-align: center;
-            font-family: 'Courier New', monospace;
-        }
+  /* loading overlay */
+  .loading-overlay{
+    position:absolute; inset:0; background: rgba(255,255,255,0.0);
+    display:flex; align-items:center; justify-content:center;
+    pointer-events:none;
+  }
 
-        .rainbow-text {
-            display: inline-block;
-        }
+  .loader-wrap{
+    width:80%; max-width:540px; pointer-events:auto;
+    display:flex;flex-direction:column;align-items:center;gap:18px;
+  }
 
-        .rainbow-char {
-            display: inline-block;
-            animation: rainbowColor 0.7s linear infinite;
-            animation-delay: calc(0.08s * var(--char-index));
-        }
+  .loading-bar-outer{
+    width:100%; height:18px;background: rgba(0,0,0,0.06);
+    border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.6);
+  }
+  .loading-bar-inner{
+    height:100%;
+    width:0%;
+    background: linear-gradient(90deg,#ff6b9a,#ffd36f,#ffd3f0);
+    border-radius:12px;
+    box-shadow: 0 6px 18px rgba(255,105,160,0.12);
+    transition: width .18s linear;
+  }
+  .loading-text{
+    font-family: "Courier New", monospace;
+    font-weight:700; color:#8b4e6e; font-size:18px;
+    letter-spacing:1px;
+    text-transform:lowercase;
+  }
 
-        @keyframes rainbowColor {
-            0% { color: #ff0000; transform: translateY(0px); }
-            14% { color: #ff7f00; transform: translateY(-3px); }
-            28% { color: #ffff00; transform: translateY(0px); }
-            42% { color: #00ff00; transform: translateY(3px); }
-            57% { color: #0000ff; transform: translateY(0px); }
-            71% { color: #4b0082; transform: translateY(-3px); }
-            85% { color: #9400d3; transform: translateY(0px); }
-            100% { color: #ff0000; transform: translateY(3px); }
-        }
+  /* final message screen */
+  .message-screen{
+    position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(180deg, rgba(255,213,234,0.92), rgba(255,244,250,0.98));
+    z-index:2000; opacity:0; pointer-events:none; transition:opacity .6s ease;
+  }
+  .message-screen.show{ opacity:1; pointer-events:auto }
+  .message-box{
+    width:92%; max-width:800px; padding:32px; border-radius:20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.99));
+    text-align:center; box-shadow: 0 30px 80px rgba(100,20,60,0.09);
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+  .message-title{
+    font-size:34px; color:#ff4d8a; font-weight:900;
+    margin-bottom:8px; letter-spacing:0.6px;
+    text-shadow: 0 6px 20px rgba(255,110,160,0.08);
+  }
+  .message-sub{
+    font-size:18px;color:#6b4a63;margin-bottom:18px;
+  }
+  .wish-lines{ font-size:18px;color:#5a3a52; line-height:1.7; margin-bottom:18px; font-weight:600 }
+  .small-note{ font-size:13px;color:#7c5876 }
 
-        .loading-bar-container {
-            width: 70%;
-            height: 25px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 12px;
-            overflow: hidden;
-            margin: 30px 0;
-            border: 2px solid rgba(255,255,255,0.4);
-        }
+  /* falling hearts & confetti */
+  .falling-layer{ position:fixed; inset:0; pointer-events:none; z-index:1500; overflow:hidden }
+  .particle{
+    position:absolute;font-size:20px;opacity:0.95;
+    animation: fall linear forwards;
+  }
+  @keyframes fall{
+    0%{ transform: translateY(-120px) rotate(0deg) scale(.6); opacity:0 }
+    10%{ opacity:1; transform: translateY(0) rotate(30deg) scale(1) }
+    100%{ transform: translateY(110vh) rotate(720deg) scale(.5); opacity:0.02 }
+  }
 
-        .loading-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff, #c56cf0);
-            width: 0%;
-            border-radius: 10px;
-            transition: width 0.2s ease;
-            box-shadow: 0 0 15px rgba(255,255,255,0.6);
-        }
-
-        .message-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, 
-                #ff6b6b 0%, #ffd93d 20%, #6bcf7f 40%, #4d96ff 60%, #c56cf0 80%, #ff6b6b 100%);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 20px;
-        }
-
-        .message-content {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-            max-width: 900px;
-            width: 90%;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 3px solid rgba(255,255,255,0.6);
-        }
-
-        .message-title {
-            font-size: 2.8rem;
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff, #c56cf0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
-            font-weight: bold;
-            line-height: 1.3;
-        }
-
-        .wish-text {
-            font-size: 1.4rem;
-            color: #333;
-            line-height: 1.8;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .wish-emoji {
-            font-size: 2.2rem;
-            margin: 0 8px;
-            vertical-align: middle;
-        }
-
-        .snowflakes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 3000;
-        }
-
-        .snowflake {
-            position: absolute;
-            color: white;
-            font-size: 24px;
-            animation: snowFall 12s linear infinite;
-            text-shadow: 0 0 8px rgba(255,255,255,0.9);
-        }
-
-        @keyframes snowFall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-    </style>
+  /* responsive */
+  @media (max-width:720px){
+    .stage{flex-direction:column-reverse;align-items:center}
+    .preview{width:92%;height:360px}
+    .left{width:100%}
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <button class="hack-button" onclick="startHack()">HACK</button>
-    </div>
+  <div class="card" role="main" aria-label="Chúc mừng 20/10">
+    <header>
+      <div class="logo">20</div>
+      <div>
+        <h1>Chúc mừng 20/10 — Ngày của những nàng xinh 💐</h1>
+        <p class="lead">Click nút dưới để nhận lời chúc dễ thương nha!</p>
+      </div>
+    </header>
 
-    <div class="floating-icons" id="floatingIcons"></div>
-
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-text" id="loadingText"></div>
-        <div class="loading-bar-container">
-            <div class="loading-bar" id="loadingBar"></div>
+    <div class="stage">
+      <div class="left">
+        <div style="margin-top:8px; font-size:15px; color:#6b4a63;">
+          <strong>Gửi tặng cô nàng đặc biệt:</strong> một chút ngọt, một chút hoa, và cả bầu trời yêu thương.
         </div>
-    </div>
 
-    <div class="message-screen" id="messageScreen">
-        <div class="message-content">
-            <h1 class="message-title">Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</h1>
-            <p class="wish-text"><span class="wish-emoji">💐</span> Gửi đến những người phụ nữ tuyệt vời nhất</p>
-            <p class="wish-text"><span class="wish-emoji">✨</span> Chúc các bạn luôn xinh đẹp, rạng ngời</p>
-            <p class="wish-text"><span class="wish-emoji">🌟</span> Thành công và hạnh phúc trong cuộc sống</p>
-            <p class="wish-text"><span class="wish-emoji">💖</span> Luôn mạnh mẽ và tỏa sáng</p>
-            <p class="wish-text"><span class="wish-emoji">🎀</span> Cảm ơn vì tất cả những điều tuyệt vời</p>
-            <p class="wish-text"><span class="wish-emoji">🌹</span> Chúc mừng ngày 20/10 ý nghĩa!</p>
+        <div class="cta">
+          <button class="start-btn" id="startBtn">Click nút này nè bạn ơi ✨</button>
+          <div class="hint">Nhạc nền: từ liên kết bạn đã up — Catbox</div>
         </div>
+
+        <div style="margin-top:18px; color:#7e5a76; font-size:14px">
+          * Sau khi bấm, sẽ hiện loading tới 100% → hiện lời chúc kèm hiệu ứng rơi tim & confetti.
+        </div>
+      </div>
+
+      <div class="preview" aria-hidden="true">
+        <div class="card-heart">💘</div>
+        <div style="text-align:center; padding:18px;">
+          <div style="font-size:18px; color:#6b4a63; font-weight:700">Preview</div>
+          <div style="margin-top:8px; color:#894867">Hoa + Tim + Âm nhạc</div>
+          <div style="margin-top:22px; font-size:13px; color:#7d5a78">Dùng được trên GitHub Pages</div>
+        </div>
+      </div>
     </div>
 
-    <div class="snowflakes" id="snowflakes"></div>
+    <!-- loading overlay (hidden initially) -->
+    <div class="loading-overlay" id="loadingOverlay" aria-hidden="true" style="display:none;">
+      <div class="loader-wrap">
+        <div class="loading-text" id="loadingText">đang chuẩn bị lời chúc...</div>
+        <div class="loading-bar-outer" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="loading-bar-inner" id="loadingBar"></div>
+        </div>
+        <div style="font-size:13px;color:#7c5876;text-align:center">Chờ xíu nha, tớ đang gói quà ảo cho cậu 🎁</div>
+      </div>
+    </div>
+  </div>
 
-    <audio id="backgroundMusic" loop autoplay>
-        <source src="https://files.catbox.moe/tqi6f7.mov" type="audio/mp3">
-    </audio>
+  <!-- final message screen -->
+  <div class="message-screen" id="messageScreen" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="message-box">
+      <div style="font-size:46px">🌸</div>
+      <div class="message-title">Chúc mừng 20/10!</div>
+      <div class="message-sub">Gửi đến cô gái đặc biệt — người khiến ngày thường cũng rạng rỡ</div>
 
-    <script>
-        class HackSystem {
-            constructor() {
-                this.music = document.getElementById('backgroundMusic');
-                this.loadingText = "đang hack dữ liệu máy";
-                this.icons = ['💖', '🇻🇳', '🌸', '🎀', '🌟', '✨', '💐', '🌹', '🥰', '💕', '💞', '💓'];
-                this.initFloatingIcons();
-                this.initSnowflakes();
-                this.setupAudioAutoplay();
-            }
+      <div class="wish-lines" id="wishLines">
+        <div>💐 Chúc bạn luôn xinh tươi như hoa,</div>
+        <div>✨ mỗi ngày đều ngập tràn nụ cười và niềm vui,</div>
+        <div>🌟 mọi dự định học hành, công việc đều thuận lợi,</div>
+        <div>💖 và luôn gặp may mắn trong chuyện tình cảm nữa nhé!</div>
+      </div>
 
-            setupAudioAutoplay() {
-                this.music.volume = 0.7;
-                
-                const playAudio = () => {
-                    this.music.play().then(() => {
-                        console.log('Nhạc đang phát tự động');
-                    }).catch(error => {
-                        console.log('Lỗi phát nhạc:', error);
-                        setTimeout(playAudio, 1000);
-                    });
-                };
+      <div class="small-note">— Gửi từ một người bạn muốn bạn cười thật nhiều hôm nay 🌷</div>
+    </div>
+  </div>
 
-                document.addEventListener('click', playAudio, { once: true });
-                document.addEventListener('touchstart', playAudio, { once: true });
-                document.addEventListener('keydown', playAudio, { once: true });
+  <!-- falling particles layer -->
+  <div class="falling-layer" id="fallingLayer" aria-hidden="true"></div>
 
-                setTimeout(playAudio, 1000);
-            }
+  <!-- background audio (Catbox) -->
+  <audio id="bgAudio" loop preload="auto">
+    <source src="https://files.catbox.moe/tqi6f7.mov" />
+    <!-- fallback text will be ignored by browsers but left for resilience -->
+  </audio>
 
-            initFloatingIcons() {
-                const iconsContainer = document.getElementById('floatingIcons');
-                
-                const createIcon = () => {
-                    const icon = document.createElement('div');
-                    icon.className = 'floating-icon';
-                    
-                    const randomIcon = this.icons[Math.floor(Math.random() * this.icons.length)];
-                    icon.textContent = randomIcon;
-                    
-                    const startX = Math.random() * 100;
-                    const delay = Math.random() * 15;
-                    const duration = Math.random() * 10 + 10;
-                    const size = Math.random() * 20 + 20;
-                    
-                    icon.style.left = startX + 'vw';
-                    icon.style.animationDelay = delay + 's';
-                    icon.style.animationDuration = duration + 's';
-                    icon.style.fontSize = size + 'px';
-                    
-                    iconsContainer.appendChild(icon);
+<script>
+  // Elements
+  const startBtn = document.getElementById('startBtn');
+  const loadingOverlay = document.getElementById('loadingOverlay');
+  const loadingBar = document.getElementById('loadingBar');
+  const loadingText = document.getElementById('loadingText');
+  const messageScreen = document.getElementById('messageScreen');
+  const bgAudio = document.getElementById('bgAudio');
+  const fallingLayer = document.getElementById('fallingLayer');
 
-                    setTimeout(() => {
-                        if (icon.parentNode) {
-                            icon.parentNode.removeChild(icon);
-                        }
-                    }, duration * 1000);
-                };
+  // Attempt autoplay on load
+  async function tryAutoPlay() {
+    try {
+      bgAudio.volume = 0.72;
+      await bgAudio.play();
+      console.log('Audio autoplay success');
+    } catch (err) {
+      console.log('Autoplay blocked or failed — will play on user interaction.', err);
+    }
+  }
 
-                setInterval(createIcon, 500);
+  // Try autoplay once
+  tryAutoPlay();
 
-                for (let i = 0; i < 10; i++) {
-                    setTimeout(createIcon, i * 300);
-                }
-            }
+  // Utility to create falling particles
+  function spawnParticles(count=22) {
+    const emojis = ['💖','🌸','🌷','💐','🎀','✨','🌟','💕','💘'];
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    for (let i=0;i<count;i++){
+      const el = document.createElement('div');
+      el.className = 'particle';
+      el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      const size = Math.random()*22 + 14; // px
+      el.style.fontSize = size + 'px';
+      const left = Math.random()*100; // vw
+      el.style.left = left + 'vw';
+      const delay = Math.random()*1.5;
+      const dur = Math.random()*6 + 6;
+      el.style.animationDelay = delay + 's';
+      el.style.animationDuration = dur + 's';
+      // slight horizontal movement using transform translateX via CSS var
+      fallingLayer.appendChild(el);
+      // remove when animation done
+      setTimeout(()=> { if (el && el.parentNode) el.parentNode.removeChild(el); }, (delay + dur)*1000 + 200);
+    }
+  }
 
-            initSnowflakes() {
-                const snowContainer = document.getElementById('snowflakes');
-                const snowflakes = ['❄', '✨', '💎', '⭐', '🔸', '🔷', '♥'];
-                
-                for (let i = 0; i < 40; i++) {
-                    const snowflake = document.createElement('div');
-                    snowflake.className = 'snowflake';
-                    snowflake.textContent = snowflakes[Math.floor(Math.random() * snowflakes.length)];
-                    
-                    const startX = Math.random() * 100;
-                    const delay = Math.random() * 10;
-                    const duration = Math.random() * 8 + 8;
-                    const size = Math.random() * 20 + 15;
-                    
-                    snowflake.style.left = startX + 'vw';
-                    snowflake.style.animationDelay = delay + 's';
-                    snowflake.style.animationDuration = duration + 's';
-                    snowflake.style.fontSize = size + 'px';
-                    
-                    snowContainer.appendChild(snowflake);
-                }
-            }
+  // animate loading
+  function runLoadingSequence() {
+    loadingOverlay.style.display = 'flex';
+    loadingOverlay.style.pointerEvents = 'auto';
+    loadingOverlay.style.opacity = '1';
 
-            createRainbowText() {
-                const textElement = document.getElementById('loadingText');
-                textElement.innerHTML = '';
-                
-                const words = this.loadingText.split(' ');
-                
-                words.forEach((word, wordIndex) => {
-                    const wordSpan = document.createElement('span');
-                    wordSpan.className = 'rainbow-text';
-                    wordSpan.style.marginRight = '10px';
-                    
-                    for (let i = 0; i < word.length; i++) {
-                        const charSpan = document.createElement('span');
-                        charSpan.className = 'rainbow-char';
-                        charSpan.textContent = word[i];
-                        charSpan.style.setProperty('--char-index', wordIndex * word.length + i);
-                        wordSpan.appendChild(charSpan);
-                    }
-                    
-                    textElement.appendChild(wordSpan);
-                });
-            }
+    // vivid loading text animation (changing)
+    const msgs = [
+      'đang gói quà xinh xắn...',
+      'đang thả tim nhỏ nhỏ...',
+      'đang bọc hoa ảo...',
+      'đang soạn lời chúc dễ thương...',
+      'sắp xong rồi nè...'
+    ];
 
-            async startLoading() {
-                const loadingScreen = document.getElementById('loadingScreen');
-                const loadingBar = document.getElementById('loadingBar');
-                
-                loadingScreen.style.display = 'flex';
-                document.querySelector('.hack-button').style.display = 'none';
-                
-                this.createRainbowText();
-                
-                const totalTime = 5000;
-                const interval = 50;
-                const steps = totalTime / interval;
-                const progressPerStep = 100 / steps;
-                
-                for (let i = 0; i <= steps; i++) {
-                    loadingBar.style.width = (i * progressPerStep) + '%';
-                    await this.delay(interval);
-                }
-                
-                await this.showMessage();
-            }
+    let tick=0;
+    const textInterval = setInterval(()=> {
+      loadingText.textContent = msgs[tick % msgs.length];
+      tick++;
+    }, 800);
 
-            async showMessage() {
-                const loadingScreen = document.getElementById('loadingScreen');
-                const messageScreen = document.getElementById('messageScreen');
-                
-                loadingScreen.style.opacity = '0';
-                loadingScreen.style.transition = 'opacity 1.5s ease';
-                
-                await this.delay(1500);
-                
-                loadingScreen.style.display = 'none';
-                messageScreen.style.display = 'flex';
-                
-                setTimeout(() => {
-                    messageScreen.style.opacity = '1';
-                }, 100);
-            }
+    // progressively fill bar to 100% in ~3500-4200ms
+    const total = 3800 + Math.random()*800;
+    const start = performance.now();
+    function step(now){
+      const elapsed = now - start;
+      const pct = Math.min(100, (elapsed/total)*100);
+      loadingBar.style.width = pct + '%';
+      loadingBar.parentElement.setAttribute('aria-valuenow', Math.round(pct));
+      if (pct < 100) {
+        requestAnimationFrame(step);
+      } else {
+        clearInterval(textInterval);
+        // small delay then reveal message
+        setTimeout(()=> revealMessage(), 700);
+      }
+    }
+    requestAnimationFrame(step);
+  }
 
-            delay(ms) {
-                return new Promise(resolve => setTimeout(resolve, ms));
-            }
-        }
+  // reveal final message
+  function revealMessage(){
+    // fade out the card area a bit for dramatic effect
+    document.querySelector('.card').style.filter = 'brightness(.9) blur(.0px)';
+    // hide loader overlay
+    loadingOverlay.style.display = 'none';
 
-        const hackSystem = new HackSystem();
+    // Show particles lots
+    spawnParticles(32);
+    // show message screen with fade
+    messageScreen.classList.add('show');
+    messageScreen.setAttribute('aria-hidden','false');
 
-        function startHack() {
-            hackSystem.startLoading();
-        }
+    // gentle pulse to message box
+    const box = document.querySelector('.message-box');
+    box.animate([
+      { transform: 'scale(.98)', opacity: 0 },
+      { transform: 'scale(1.02)', opacity: 1 },
+      { transform: 'scale(1)', opacity: 1 }
+    ], { duration: 900, easing: 'cubic-bezier(.2,.9,.3,1)' });
 
-        document.addEventListener('keydown', function(e) {
-            if (e.code === 'Space') {
-                e.preventDefault();
-                const music = document.getElementById('backgroundMusic');
-                if (music.paused) {
-                    music.play();
-                } else {
-                    music.pause();
-                }
-            }
-        });
+    // sprinkle more particles a few times
+    setTimeout(()=> spawnParticles(28), 600);
+    setTimeout(()=> spawnParticles(18), 1200);
+  }
 
-        window.addEventListener('load', function() {
-            document.getElementById('backgroundMusic').volume = 0.7;
-        });
-    </script>
+  // On start button click: ensure audio playing, then run loading
+  startBtn.addEventListener('click', async function(){
+    // try to play audio (if blocked previously)
+    try {
+      await bgAudio.play();
+    } catch(e){
+      // fallback: resume on user gesture via older API
+      try { bgAudio.play(); } catch(err) { console.log('Unable to auto-play even after click', err); }
+    }
+
+    // small visual feedback
+    startBtn.disabled = true;
+    startBtn.style.opacity = .86;
+    startBtn.textContent = 'Đang chuẩn bị...';
+
+    // run loading
+    runLoadingSequence();
+  });
+
+  // Accessibility: allow Enter key to trigger button when focused
+  startBtn.addEventListener('keyup', function(e){
+    if (e.key === 'Enter' || e.key === ' ') startBtn.click();
+  });
+
+  // Optional: hide message when user taps anywhere on it (close)
+  messageScreen.addEventListener('click', function(){
+    // gentle close
+    messageScreen.classList.remove('show');
+    messageScreen.setAttribute('aria-hidden','true');
+    // stop audio if you want (comment out if not)
+    // bgAudio.pause();
+  });
+
+  // spawn a few gentle floating particles on bg periodically (decorative)
+  setInterval(()=> spawnParticles(6), 1800);
+
+  // If you want the page to try autoplay again when user interacts anywhere:
+  function resumeIfNeeded(){
+    if (bgAudio.paused) {
+      bgAudio.play().catch(()=>{});
+    }
+  }
+  ['click','touchstart','keydown'].forEach(ev => document.addEventListener(ev, resumeIfNeeded, {once:true, passive:true}));
+</script>
 </body>
 </html>

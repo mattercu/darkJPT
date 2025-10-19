@@ -5,7 +5,7 @@ class SpecialEffects {
         this.specialScreen2 = document.getElementById('specialScreen2');
         this.bgAudio = document.getElementById('bgAudio');
         this.audio1 = new Audio('https://files.catbox.moe/39azma.mp3');
-        this.audio2 = new Audio('https://files.catbox.moe/t0cprg.mp4');
+        this.audio2 = new Audio('https://files.catbox.moe/0avksf.mp4');
         
         this.init();
     }
@@ -68,7 +68,7 @@ class SpecialEffects {
             this.audio2.play().catch(e => console.log('Audio2 play error:', e));
             
             // Wait 8 seconds then resolve
-            setTimeout(resolve, 8000);
+            setTimeout(resolve, 13000);
         });
     }
 
